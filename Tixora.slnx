@@ -5,6 +5,6 @@
   </Folder>
   <Folder Name="/src/Modules/" />
   <Folder Name="/src/Modules/Events/">
-    <Project Path="src/Modules/Events.Api/Events.Api.csproj" />
+      <Project Path="src/Modules/Events/Events.Api/Events.Api.csproj" />
   </Folder>
 </Solution>
