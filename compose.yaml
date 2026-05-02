@@ -1,0 +1,19 @@
+services:
+  tixora.bootstraper:
+    image: tixora.bootstraper
+    container_name: tixora_api
+    build:
+      context: .
+      dockerfile: src/API/Tixora.Bootstraper/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://localhost:8081;https://localhost:8080
+
+  tixora.db:
+    image: postgres:latest
+    container_name: tixora_db
+    environment:
+      - POSTGRES_DB=Tixora
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+    ports:
+      - 5432:5432
