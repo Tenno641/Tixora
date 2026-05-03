@@ -1,4 +1,5 @@
 ﻿using Events.Api.Common;
+using Events.Api.Common.Validation;
 using Events.Api.Contracts;
 using Events.Application.Events;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,10 @@ public static class CreateEvent
 
                 var result = await sender.Send(command);
 
-            return Results.CreatedAtRoute("GetEvent", new { id = result}, result);
+                return result.IsError
+                    ? result.Errors.ToValidationProblem()
+                    : Results.CreatedAtRoute("GetEvent", new { id = result}, result);
+
         })
         .WithTags(Tags.Events)
         .Produces<Guid>(StatusCodes.Status201Created)
