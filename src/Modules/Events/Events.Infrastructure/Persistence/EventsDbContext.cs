@@ -1,9 +1,11 @@
-﻿namespace Events.Infrastructure.Persistence;
+﻿using Events.Application.Common;
+
+namespace Events.Infrastructure.Persistence;
 
 using Domain.Events;
 using Microsoft.EntityFrameworkCore;
 
-public sealed class EventsDbContext: DbContext
+public sealed class EventsDbContext: DbContext, IUnitOfWork
 {
     public DbSet<Event> Events { get; set; }
 
@@ -15,4 +17,4 @@ public sealed class EventsDbContext: DbContext
 
         base.OnModelCreating(modelBuilder);
     }
-};
+}

@@ -9,10 +9,12 @@ public record CreateEventCommand(string Title, string Description, string Locati
 public class CreateEvent: IRequestHandler<CreateEventCommand, Guid>
 {
     private readonly IEventsRepository _eventsRepository;
+    private readonly IUnitOfWork _unitOfWork;
     
-    public CreateEvent(IEventsRepository eventsRepository)
+    public CreateEvent(IEventsRepository eventsRepository, IUnitOfWork unitOfWork)
     {
         _eventsRepository = eventsRepository;
+        _unitOfWork = unitOfWork;
     }
     
     public async Task<Guid> Handle(CreateEventCommand request, CancellationToken cancellationToken)
@@ -28,7 +30,9 @@ public class CreateEvent: IRequestHandler<CreateEventCommand, Guid>
             State = EventState.Draft
         };
         
-        await _eventsRepository.AddEventAsync(@event);
+        _eventsRepository.Insert(@event);
+
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
         
         return @event.Id;
     }
