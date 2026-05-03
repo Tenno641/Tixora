@@ -20,7 +20,7 @@ public class CreateEvent: IRequestHandler<CreateEventCommand, ErrorOr<Guid>>
     
     public async Task<ErrorOr<Guid>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
     {
-        Event @event = Event.Create
+        ErrorOr<Event> @event = Event.Create
         ( 
             id: Guid.CreateVersion7(),
             title: request.Title,
@@ -31,11 +31,14 @@ public class CreateEvent: IRequestHandler<CreateEventCommand, ErrorOr<Guid>>
             state: EventState.Draft
         );
 
-        _eventsRepository.Insert(@event);
+        if (@event.IsError)
+            return @event.Errors;
+        
+        _eventsRepository.Insert(@event.Value);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return @event.Id;
+        return @event.Value.Id;
     }
 }
 
