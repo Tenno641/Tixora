@@ -1,35 +1,33 @@
-﻿namespace Events.Api.Endpoints;
+﻿using Events.Api.Contracts;
+using Events.Api.Contracts.Mappings;
+using Microsoft.AspNetCore.Mvc;
 
+namespace Events.Api.Endpoints;
+
+using Application.Events;
 using Common;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
 
 public static class GetEvent
 {
     public static void AddEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("events/{id:guid}", async (Guid id, EventsDbContext dbContext) =>
+        app.MapGet("events/{id:guid}", async (Guid id, [FromServices] ISender sender) =>
         {
-            var @event = await dbContext.Events
-                .AsNoTracking()
-                .Where(e => e.Id == id)
-                .FirstOrDefaultAsync(e => e.Id == id);
+            var query = new GetEventQuery(id);
 
-            return @event is null
+            var result = await sender.Send(query);
+
+            return result is null
                 ? Results.NotFound()
-                : Results.Ok(new Response(
-                    Id: @event.Id,
-                    Title: @event.Title,
-                    Description: @event.Description,
-                    Location: @event.Location,
-                    StartAt: @event.StartAt,
-                    EndAt: @event.EndAt,
-                    State: @event.State.ToString()));
+                : Results.Ok(result.ToResponse());
         })
         .WithName("GetEvent")
-        .WithTags(Tags.Events);
+        .WithTags(Tags.Events)
+        .Produces(StatusCodes.Status200OK, typeof(EventResponse))
+        .ProducesProblem(StatusCodes.Status404NotFound);
     }
 }

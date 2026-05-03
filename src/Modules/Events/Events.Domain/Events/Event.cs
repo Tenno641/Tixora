@@ -1,6 +1,6 @@
-﻿namespace Events.Api;
+﻿namespace Events.Domain.Events;
 
-internal sealed class Event
+public sealed class Event
 {
     public Guid Id { get; set; }
     public required string Title { get; set; }

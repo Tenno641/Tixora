@@ -1,4 +1,4 @@
-﻿namespace Events.Api;
+﻿namespace Events.Domain.Events;
 
 public enum EventState
 {

@@ -1,33 +1,34 @@
-﻿namespace Events.Api.Endpoints;
-
-using Api;
-using Common;
-using Persistence;
+﻿using Events.Api.Common;
+using Events.Api.Contracts;
+using Events.Application.Events;
+using Microsoft.AspNetCore.Mvc;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+
+namespace Events.Api.Endpoints;
 
 public static class CreateEvent
 {
     public static void AddEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("events", async (Request request, EventsDbContext dbContext) =>
-        {
-            var @event = new Event
+        app.MapPost("events", async ([FromBody] CreateEventRequest createEventRequest, 
+                [FromServices] ISender sender) =>
             {
-                Id = Guid.CreateVersion7(),
-                Title = request.Title,
-                Description = request.Description,
-                Location = request.Location,
-                StartAt = request.StartAt,
-                State = EventState.Draft
-            };
+                var command = new CreateEventCommand(
+                Title: createEventRequest.Title,
+                Description: createEventRequest.Description,
+                Location: createEventRequest.Location,
+                StartAt: createEventRequest.StartAt,
+                createEventRequest.EndAt);
 
-            dbContext.Events.Add(@event);
-            await dbContext.SaveChangesAsync();
+                var result = await sender.Send(command);
 
-            return Results.CreatedAtRoute("GetEvent", new { id = @event.Id }, @event);
+            return Results.CreatedAtRoute("GetEvent", new { id = result}, result);
         })
-        .WithTags(Tags.Events);
+        .WithTags(Tags.Events)
+        .Produces<Guid>(StatusCodes.Status201Created)
+        .ProducesValidationProblem();
     }
 }

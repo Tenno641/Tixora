@@ -6,5 +6,8 @@
   <Folder Name="/src/Modules/" />
   <Folder Name="/src/Modules/Events/">
       <Project Path="src/Modules/Events/Events.Api/Events.Api.csproj" />
+    <Project Path="src/Modules/Events/Events.Application/Events.Application.csproj" />
+    <Project Path="src/Modules/Events/Events.Domain/Events.Domain.csproj" />
+    <Project Path="src/Modules/Events/Events.Infrastructure/Events.Infrastructure.csproj" />
   </Folder>
 </Solution>

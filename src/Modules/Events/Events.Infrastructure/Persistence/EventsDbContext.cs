@@ -1,9 +1,9 @@
-﻿using Events.Api.Common;
+﻿namespace Events.Infrastructure.Persistence;
+
+using Domain.Events;
 using Microsoft.EntityFrameworkCore;
 
-namespace Events.Api.Persistence;
-
-internal sealed class EventsDbContext: DbContext
+public sealed class EventsDbContext: DbContext
 {
     public DbSet<Event> Events { get; set; }
 

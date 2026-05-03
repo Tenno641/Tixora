@@ -1,4 +1,4 @@
-﻿namespace Events.Api.Common;
+﻿namespace Events.Infrastructure.Persistence;
 
 internal static class Schema
 {

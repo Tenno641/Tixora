@@ -1,27 +1,21 @@
-﻿namespace Events.Api;
-
-using Common;
-using Endpoints;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
+﻿using Events.Api.Endpoints;
+using Events.Application;
+using Events.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence;
+using Microsoft.AspNetCore.Routing;
+
+namespace Events.Api;
 
 public static class EventModule
 {
     public static IServiceCollection AddEventDependencies(this IServiceCollection services)
     {
-        services.AddDbContext<EventsDbContext>(optins =>
-        {
-            optins.UseNpgsql(Environment.GetEnvironmentVariable("DatabaseConnectionString"), postgresOptions =>
-            {
-                postgresOptions.MigrationsHistoryTable("Events_Migrations_History", Schema.Events);
-            });
-        });
+        services.AddInfrastructure();
+        services.AddApplication();
 
         return services;
     }
-
+    
     public static IEndpointRouteBuilder AddEventEndpoints(this IEndpointRouteBuilder app)
     {
         CreateEvent.AddEndpoint(app);

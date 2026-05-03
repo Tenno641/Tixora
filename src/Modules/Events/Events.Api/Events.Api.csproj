@@ -9,7 +9,15 @@
     <ItemGroup>
         <!-- https://stackoverflow.com/questions/59873726/iendpointroutebuilder-interface-not-found -->
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Events.Application\Events.Application.csproj" />
+      <ProjectReference Include="..\Events.Infrastructure\Events.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="14.1.0" />
     </ItemGroup>
 
 </Project>
