@@ -1,4 +1,4 @@
-﻿using Events.Application.Common;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Events.Application;
@@ -9,8 +9,10 @@ public static class DependencyInjection
     {
         services.AddMediatR(options =>
         {
-            options.RegisterServicesFromAssemblyContaining(typeof(IEventsRepository));
+            options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection));
         });
+        
+        services.AddValidatorsFromAssemblyContaining(typeof(DependencyInjection));
 
         return services;
     }

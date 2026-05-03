@@ -1,10 +1,10 @@
 ﻿using Events.Application.Common;
 using Events.Domain.Events;
+using FluentValidation;
 using MediatR;
 
 namespace Events.Application.Events;
 
-public record CreateEventCommand(string Title, string Description, string Location, DateTime StartAt, DateTime EndAt): IRequest<Guid>;
 
 public class CreateEvent: IRequestHandler<CreateEventCommand, Guid>
 {
@@ -35,5 +35,20 @@ public class CreateEvent: IRequestHandler<CreateEventCommand, Guid>
         await _unitOfWork.SaveChangesAsync(cancellationToken);
         
         return @event.Id;
+    }
+}
+
+public record CreateEventCommand(string Title, string Description, string Location, DateTime StartAt, DateTime EndAt): IRequest<Guid>;
+
+public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
+{
+    public CreateEventCommandValidator()
+    {
+        RuleFor(c => c.Title).MaximumLength(128);
+        RuleFor(c => c.Description).MaximumLength(128);
+        RuleFor(c => c.Location).MaximumLength(128);
+        RuleFor(c => c.StartAt).NotEmpty();
+        RuleFor(c => c.EndAt).NotEmpty();
+        RuleFor(c => c.EndAt).Must((command, endAt) => command.StartAt < endAt);
     }
 }
