@@ -1,6 +1,5 @@
 ﻿using Events.Domain.Common;
 using Events.Domain.Events;
-using ErrorOr;
 
 namespace Events.Domain.Tickets;
 
@@ -12,7 +11,7 @@ public class Ticket: Entity
     public decimal Price { get; private set; }
     public int Quantity { get; private set; }
 
-    public static ErrorOr<Ticket> Create(
+    public static Ticket Create(
         Event @event,
         string name,
         string currency,
@@ -42,5 +41,6 @@ public class Ticket: Entity
     }
     
     private Ticket(Guid eventId, string name, string currency, decimal price, int quantity, Guid? id = null): base(id) { }
+    
     private Ticket() { }
 }

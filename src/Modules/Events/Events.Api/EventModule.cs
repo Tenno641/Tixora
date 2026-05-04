@@ -1,4 +1,5 @@
 ﻿using Events.Api.Endpoints;
+using Events.Api.Endpoints.Events;
 using Events.Application;
 using Events.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,5 @@
-﻿using Events.Domain.Events;
+﻿using Events.Api.Contracts.Events;
+using Events.Domain.Events;
 
 namespace Events.Api.Contracts.Mappings;
 
