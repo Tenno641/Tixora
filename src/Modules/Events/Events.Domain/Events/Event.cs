@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using Events.Domain.Categories;
 using Events.Domain.Common;
 
 namespace Events.Domain.Events;
@@ -6,6 +7,7 @@ namespace Events.Domain.Events;
 public sealed class Event: Entity
 {
     public string Title { get; private set; }
+    public Guid CategoryId { get; private set; }
     public string Description { get; private set; }
     public DateTime StartAt { get; private set; }
     public DateTime EndAt { get; private set; }
@@ -18,7 +20,8 @@ public sealed class Event: Entity
         DateTime startAt, 
         DateTime endAt, 
         string location, 
-        EventState state, 
+        EventState state,
+        Guid categoryId,
         Guid? id = null): base(id) 
     {
         Title = title;
@@ -27,8 +30,29 @@ public sealed class Event: Entity
         EndAt = endAt;
         Location = location;
         State = state;
+        CategoryId = categoryId;
     }
 
+    public static ErrorOr<Event> Create(
+        string title, 
+        string description, 
+        DateTime startAt, 
+        DateTime endAt, 
+        string location, 
+        EventState state,
+        Category category,
+        Guid? id = null)
+    {
+        if (startAt > endAt)
+            return EventErrors.EndDatePrecedesStartDate;
+                
+        Event @event = new Event(title, description, startAt, endAt, location, state, category.Id, id);
+        
+        @event.RaiseDomainEvent(new EventCreatedEvent(@event.Id));
+        
+        return @event;
+    }
+    
     public ErrorOr<Success> Publish()
     {
         if (State is not EventState.Draft)
@@ -52,12 +76,12 @@ public sealed class Event: Entity
         RaiseDomainEvent(new EventRescheduledEvent(Id, StartAt, EndAt));
     }
     
-    public ErrorOr<Success> Cancel(DateTime utcNow)
+    public ErrorOr<Success> Cancel(IDateTimeProvider dateTimeProvider)
     {
         if (State == EventState.Cancelled)
             return EventErrors.EventAlreadyCancelled;
 
-        if (StartAt > utcNow)
+        if (StartAt > dateTimeProvider.UtcNow)
             return EventErrors.EventAlreadyStarted;
 
         State = EventState.Cancelled;
@@ -65,25 +89,6 @@ public sealed class Event: Entity
         RaiseDomainEvent(new EventCancelledEvent(Id));
 
         return Result.Success;
-    }
-    
-    public static ErrorOr<Event> Create(
-        string title, 
-        string description, 
-        DateTime startAt, 
-        DateTime endAt, 
-        string location, 
-        EventState state, 
-        Guid? id = null)
-    {
-        if (startAt > endAt)
-            return EventErrors.EndDatePrecedesStartDate;
-                
-        Event @event = new Event(title, description, startAt, endAt, location, state, id);
-        
-        @event.RaiseDomainEvent(new EventCreatedEvent(@event.Id));
-        
-        return @event;
     }
     
     private Event() { }

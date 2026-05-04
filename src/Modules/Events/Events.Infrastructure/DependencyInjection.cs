@@ -43,6 +43,8 @@ public static class DependencyInjection
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IEventsRepository, EventRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ITicketRepository, TicketRepository>();
 
         return services;
     }

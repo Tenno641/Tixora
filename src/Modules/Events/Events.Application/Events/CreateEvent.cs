@@ -1,5 +1,7 @@
 ﻿using ErrorOr;
 using Events.Application.Common;
+using Events.Domain;
+using Events.Domain.Categories;
 using Events.Domain.Events;
 using FluentValidation;
 using MediatR;
@@ -10,19 +12,26 @@ namespace Events.Application.Events;
 public class CreateEvent: IRequestHandler<CreateEventCommand, ErrorOr<Guid>>
 {
     private readonly IEventsRepository _eventsRepository;
+    private readonly ICategoryRepository _categoryRepository;
     private readonly IUnitOfWork _unitOfWork;
     
-    public CreateEvent(IEventsRepository eventsRepository, IUnitOfWork unitOfWork)
+    public CreateEvent(IEventsRepository eventsRepository, IUnitOfWork unitOfWork, ICategoryRepository categoryRepository)
     {
         _eventsRepository = eventsRepository;
         _unitOfWork = unitOfWork;
+        _categoryRepository = categoryRepository;
     }
     
     public async Task<ErrorOr<Guid>> Handle(CreateEventCommand request, CancellationToken cancellationToken)
     {
+        Category? category = await _categoryRepository.GetByIdAsync(request.CategoryId);
+        if (category is null)
+            return CategoryErrors.CategoryNotFound;
+
         ErrorOr<Event> @event = Event.Create
-        ( 
+        (
             id: Guid.CreateVersion7(),
+            category: category,
             title: request.Title,
             description: request.Description,
             startAt:  request.StartAt,
@@ -42,7 +51,7 @@ public class CreateEvent: IRequestHandler<CreateEventCommand, ErrorOr<Guid>>
     }
 }
 
-public record CreateEventCommand(string Title, string Description, string Location, DateTime StartAt, DateTime EndAt): IRequest<ErrorOr<Guid>>;
+public record CreateEventCommand(string Title, string Description, string Location, DateTime StartAt, DateTime EndAt, Guid CategoryId): IRequest<ErrorOr<Guid>>;
 
 public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
 {

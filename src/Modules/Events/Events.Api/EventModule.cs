@@ -20,6 +20,7 @@ public static class EventModule
     {
         CreateEvent.AddEndpoint(app);
         GetEvent.AddEndpoint(app);
+        SearchEvents.AddEndpoint(app);
 
         return app;
     }

@@ -1,4 +1,6 @@
-﻿using Events.Application.Common.Behaviors;
+﻿using Events.Application.Common;
+using Events.Application.Common.Behaviors;
+using Events.Domain.Common;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +17,8 @@ public static class DependencyInjection
         });
 
         services.AddValidatorsFromAssemblyContaining(typeof(DependencyInjection));
+
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         return services;
     }

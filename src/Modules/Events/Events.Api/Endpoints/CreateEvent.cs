@@ -18,11 +18,12 @@ public static class CreateEvent
                 [FromServices] ISender sender) =>
             {
                 var command = new CreateEventCommand(
+                CategoryId: createEventRequest.CategoryId,
                 Title: createEventRequest.Title,
                 Description: createEventRequest.Description,
                 Location: createEventRequest.Location,
                 StartAt: createEventRequest.StartAt,
-                createEventRequest.EndAt);
+                EndAt: createEventRequest.EndAt);
 
                 var result = await sender.Send(command);
 
