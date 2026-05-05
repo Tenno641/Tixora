@@ -26,7 +26,7 @@ public class Ticket: Entity
             currency: currency,
             price: price,
             quantity: quantity);
-        
+
         return ticket;
     }
 
@@ -34,13 +34,20 @@ public class Ticket: Entity
     {
         if (Price == newPrice)
             return;
-        
+
         Price = newPrice;
-        
+
         RaiseDomainEvent(new TicketPriceUpdatedEvent(Id, newPrice));
     }
-    
-    private Ticket(Guid eventId, string name, string currency, decimal price, int quantity, Guid? id = null): base(id) { }
-    
+
+    private Ticket(Guid eventId, string name, string currency, decimal price, int quantity, Guid? id = null) : base(id)
+    {
+        EventId = eventId;
+        Name = name;
+        Currency = currency;
+        Price = price;
+        Quantity = quantity;
+    }
+
     private Ticket() { }
 }

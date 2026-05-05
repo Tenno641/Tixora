@@ -42,4 +42,9 @@ public class EventRepository: IEventsRepository
         
         return @event;
     }
+    
+    public void Update(Event @event)
+    {
+        _dbContext.Events.Update(@event);
+    }
 }

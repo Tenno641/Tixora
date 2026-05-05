@@ -1,7 +1,6 @@
 ﻿using Events.Api.Common;
 using Events.Api.Common.Validation;
-using Events.Api.Contracts;
-using Events.Api.Contracts.Events;
+using Events.Application.Common.Contracts.Events;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace Events.Api.Endpoints.Events;
+namespace Events.Api.Events;
 
 public static class CreateEvent
 {
@@ -29,7 +28,7 @@ public static class CreateEvent
                 var result = await sender.Send(command);
 
                 return result.IsError
-                    ? result.Errors.ToValidationProblem()
+                    ? result.ToProblemDetails()
                     : Results.CreatedAtRoute("GetEvent", new { id = result}, result);
 
         })

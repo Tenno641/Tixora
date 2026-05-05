@@ -1,7 +1,6 @@
 ﻿using Events.Api.Common;
-using Events.Api.Contracts;
-using Events.Api.Contracts.Events;
-using Events.Api.Contracts.Mappings;
+using Events.Application.Common.Contracts.Events;
+using Events.Application.Common.Contracts.Mappings;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace Events.Api.Endpoints.Events;
+namespace Events.Api.Events;
 
 public static class GetEvent
 {

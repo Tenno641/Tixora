@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using Events.Api.Common;
 using Events.Api.Common.Validation;
-using Events.Api.Contracts.Tickets;
+using Events.Application.Common.Contracts.Tickets;
 using Events.Application.Tickets;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace Events.Api.Endpoints.Tickets;
+namespace Events.Api.Tickets;
 
 public static class CreateTicket
 {
@@ -22,10 +22,10 @@ public static class CreateTicket
             ErrorOr<Guid> ticketCreation = await sender.Send(command);
 
             return ticketCreation.IsError
-                ? ticketCreation.Errors.ToProblemDetails()
-                : Results.CreatedAtRoute("GetTicket", new { Id = ticketCreation.Value }, ticketCreation);
+                ? ticketCreation.ToProblemDetails()
+                : Results.CreatedAtRoute("GetTicket", new { TicketId = ticketCreation.Value, EventId = eventId }, ticketCreation.Value);
         })
-        .WithTags(Tags.Events)
+        .WithTags(Tags.Tickets)
         .Produces<Guid>()
         .ProducesProblem(StatusCodes.Status404NotFound);
     }

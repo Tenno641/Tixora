@@ -20,7 +20,7 @@ public class CreateTicket: IRequestHandler<CreateTicketCommand, ErrorOr<Guid>>
         _eventsRepository = eventsRepository;
         _unitOfWork = unitOfWork;
     }
-    
+
     public async Task<ErrorOr<Guid>> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
     {
         Event? @event = await _eventsRepository.GetByIAsync(request.EventId);
@@ -33,6 +33,8 @@ public class CreateTicket: IRequestHandler<CreateTicketCommand, ErrorOr<Guid>>
             currency: request.Currency,
             price: request.Price,
             quantity: request.Quantity);
+
+        _ticketRepository.Insert(ticket);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

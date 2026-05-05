@@ -6,9 +6,9 @@ using ErrorOr;
 
 namespace Events.Application.Tickets;
 
-public record GetTicketQuery(Guid TicketId, Guid EventId) : IRequest<ErrorOr<TicketResponse?>>;
+public record GetTicketQuery(Guid TicketId, Guid EventId) : IRequest<ErrorOr<TicketResponse>>;
     
-public class GetTicket: IRequestHandler<GetTicketQuery, ErrorOr<TicketResponse?>>
+public class GetTicket: IRequestHandler<GetTicketQuery, ErrorOr<TicketResponse>>
 {
     private readonly IDbConnectionFactory _dbFactory;
     
@@ -17,7 +17,7 @@ public class GetTicket: IRequestHandler<GetTicketQuery, ErrorOr<TicketResponse?>
         _dbFactory = dbFactory;
     }
 
-    public async Task<ErrorOr<TicketResponse?>> Handle(GetTicketQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<TicketResponse>> Handle(GetTicketQuery request, CancellationToken cancellationToken)
     {
         await using var connection = await _dbFactory.OpenConnectionAsync();
 

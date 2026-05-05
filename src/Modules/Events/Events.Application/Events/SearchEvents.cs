@@ -37,7 +37,8 @@ public class SearchEvents: IRequestHandler<SearchEventsQuery, SearchEventsRespon
                       WHERE
                           ({searchEventsParameters.Title is null} OR LOWER(e."Title") LIKE LOWER(@Title)) AND
                           ({searchEventsParameters.StartAt is null} OR e."StartAt" = @StartAt) AND
-                          ({searchEventsParameters.EndAt is null} OR e."EndAt" = @EndAt)
+                          ({searchEventsParameters.EndAt is null} OR e."EndAt" = @EndAt) AND
+                          e."State" = 1
                       LIMIT @PageSize
                       OFFSET @Page
                       """;
@@ -58,7 +59,8 @@ public class SearchEvents: IRequestHandler<SearchEventsQuery, SearchEventsRespon
                      WHERE
                          ({searchEventsParameters.Title is null} OR LOWER(e."Title") LIKE LOWER(@Title)) AND
                          ({searchEventsParameters.StartAt is null} OR e."StartAt" = @StartAt) AND
-                         ({searchEventsParameters.EndAt is null} OR e."EndAt" = @EndAt)
+                         ({searchEventsParameters.EndAt is null} OR e."EndAt" = @EndAt) AND
+                         e."State" = 1
                      """;
         
         int count = await connection.ExecuteScalarAsync<int>(sql, searchEventsParameters);
