@@ -23,7 +23,7 @@ public static class ErrorExtensions
             detail: error.Description, 
             extensions: new Dictionary<string, object?>()
             {
-                ["errors"] = errors.Select(e => new {e.Code, e.Description, e.Type})
+                ["errors"] = errors.Select(e => new {e.Code, e.Description})
             });
     }
 

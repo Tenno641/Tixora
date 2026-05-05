@@ -1,6 +1,8 @@
 ﻿using System.Data.Common;
 using Dapper;
 using Events.Application.Common;
+using Events.Application.Common.Contracts.Events;
+using Events.Application.Common.Contracts.Mappings;
 using Events.Domain.Events;
 using MediatR;
 
@@ -43,7 +45,8 @@ public class SearchEvents: IRequestHandler<SearchEventsQuery, SearchEventsRespon
                       OFFSET @Page
                       """;
 
-        List<Event> events = (await connection.QueryAsync<Event>(sql, searchEventsParameters))
+        List<EventResponse> events = (await connection.QueryAsync<Event>(sql, searchEventsParameters))
+            .Select(e => e.ToResponse())
             .ToList();
 
         int count = await CountTotal(connection, searchEventsParameters);
@@ -69,4 +72,4 @@ public class SearchEvents: IRequestHandler<SearchEventsQuery, SearchEventsRespon
     }
 }
 
-public record SearchEventsResponse(List<Event> Events, int Total, int Page, int PageSize);
+public record SearchEventsResponse(List<EventResponse> Events, int Total, int Page, int PageSize);
