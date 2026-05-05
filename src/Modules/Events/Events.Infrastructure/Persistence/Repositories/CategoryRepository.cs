@@ -1,8 +1,6 @@
 ﻿using Dapper;
 using Events.Application.Common;
-using Events.Domain;
 using Events.Domain.Categories;
-using Microsoft.EntityFrameworkCore;
 
 namespace Events.Infrastructure.Persistence.Repositories;
 
@@ -28,12 +26,17 @@ public class CategoryRepository: ICategoryRepository
 
         string sql = """
                      SELECT *
-                     FROM events.Categories as c
-                     WHERE c.Id = @id
+                     FROM events."Categories" as c
+                     WHERE c."Id" = @Id
                      """;
 
         Category category = await connection.QuerySingleAsync<Category>(sql, new { Id = id });
         
         return category;
+    }
+    
+    public void Update(Category category)
+    {
+        _context.Categories.Update(category);
     }
 }

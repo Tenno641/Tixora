@@ -26,6 +26,8 @@ public class RescheduleEvent: IRequestHandler<RescheduleEventCommand, ErrorOr<Su
         
         @event.Reschedule(request.StartAt, request.EndAt);
         
+        _eventsRepository.Update(@event);
+        
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result.Success;

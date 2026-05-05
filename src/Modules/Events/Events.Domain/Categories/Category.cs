@@ -10,7 +10,7 @@ public class Category: Entity
 
     public static Category Create(
         string name,
-        bool isArchived,
+        bool isArchived = false,
         Guid? id = null)
     {
         Category category = new Category(name, isArchived, id);
@@ -34,8 +34,11 @@ public class Category: Entity
         
         RaiseDomainEvent(new CategoryNameUpdatedEvent(Id, newName));
     }
-    
-    private Category(string name, bool isArchived, Guid? id = null): base(id) { }
+
+    private Category(string name, bool isArchived, Guid? id = null) : base(id)
+    {
+        Name = name;
+    }
     
     private Category() { }
 }
