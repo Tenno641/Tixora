@@ -1,6 +1,7 @@
-﻿using Events.Api.Common;
+﻿using ErrorOr;
+using Events.Api.Common;
+using Events.Api.Common.Validation;
 using Events.Application.Common.Contracts.Events;
-using Events.Application.Common.Contracts.Mappings;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -16,13 +17,13 @@ public static class GetEvent
     {
         app.MapGet("events/{id:guid}", async (Guid id, [FromServices] ISender sender) =>
         {
-            var query = new GetEventQuery(id);
+            GetEventQuery query = new GetEventQuery(id);
 
-            var result = await sender.Send(query);
+            ErrorOr<EventTicketResponse> result = await sender.Send(query);
 
-            return result is null
-                ? Results.NotFound()
-                : Results.Ok(result.ToResponse());
+            return result.IsError 
+                ? result.ToProblemDetails()
+                : Results.Ok(result.Value);
         })
         .WithName("GetEvent")
         .WithTags(Tags.Events)

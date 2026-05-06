@@ -14,16 +14,16 @@ public static class RescheduleEvent
     public static void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("events/{eventId:guid}/reschedule", async (Guid eventId, DateTime startAt, DateTime endAt, ISender sender) =>
-            {
-                RescheduleEventCommand command = new RescheduleEventCommand(eventId, startAt, endAt);
+        {
+            RescheduleEventCommand command = new RescheduleEventCommand(eventId, startAt, endAt);
 
-                ErrorOr<Success> result = await sender.Send(command);
+            ErrorOr<Success> result = await sender.Send(command);
 
-                return result.IsError
-                    ? result.ToProblemDetails()
-                    : Results.Ok();
-            })
-            .WithTags(Tags.Events)
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            return result.IsError
+                ? result.ToProblemDetails()
+                : Results.Ok();
+        })
+        .WithTags(Tags.Events)
+        .ProducesProblem(StatusCodes.Status404NotFound);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Events.Api.Common;
+﻿using ErrorOr;
+using Events.Api.Common;
 using Events.Api.Common.Validation;
 using Events.Application.Common.Contracts.Events;
 using Events.Application.Events;
@@ -17,7 +18,7 @@ public static class CreateEvent
         app.MapPost("events", async ([FromBody] CreateEventRequest createEventRequest, 
                 [FromServices] ISender sender) =>
             {
-                var command = new CreateEventCommand(
+                CreateEventCommand command = new CreateEventCommand(
                 CategoryId: createEventRequest.CategoryId,
                 Title: createEventRequest.Title,
                 Description: createEventRequest.Description,
@@ -25,7 +26,7 @@ public static class CreateEvent
                 StartAt: createEventRequest.StartAt,
                 EndAt: createEventRequest.EndAt);
 
-                var result = await sender.Send(command);
+                ErrorOr<Guid> result = await sender.Send(command);
 
                 return result.IsError
                     ? result.ToProblemDetails()

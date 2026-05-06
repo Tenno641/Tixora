@@ -32,8 +32,8 @@ public class GetTicket: IRequestHandler<GetTicketQuery, ErrorOr<TicketResponse>>
         if (ticket is null)
             return TicketErrors.TicketNotFound;
 
-        return new TicketResponse(ticket.EventId, ticket.Name, ticket.Currency, ticket.Price, ticket.Quantity);
+        return new TicketResponse(ticket.Id, ticket.EventId, ticket.Name, ticket.Currency, ticket.Price, ticket.Quantity);
     }
 }
 
-public record TicketResponse(Guid EventId, string Name, string Currency, decimal Price, int Quantity);
+public record TicketResponse(Guid Id, Guid EventId, string Name, string Currency, decimal Price, int Quantity);

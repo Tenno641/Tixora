@@ -7,7 +7,7 @@ public static class TicketMappings
 {
     public static TicketResponse ToResponse(this Ticket ticket)
     {
-        TicketResponse response = new TicketResponse(ticket.EventId, ticket.Name, ticket.Currency, ticket.Price, ticket.Quantity);
+        TicketResponse response = new TicketResponse(ticket.Id, ticket.EventId, ticket.Name, ticket.Currency, ticket.Price, ticket.Quantity);
         
         return response;
     }
