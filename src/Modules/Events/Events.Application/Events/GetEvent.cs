@@ -4,6 +4,7 @@ using Events.Domain.Events;
 using MediatR;
 using ErrorOr;
 using Microsoft.Extensions.Logging;
+using Tixora.Shared.Application.Common;
 
 namespace Events.Application.Events;
 

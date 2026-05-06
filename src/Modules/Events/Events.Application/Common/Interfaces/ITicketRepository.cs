@@ -1,6 +1,6 @@
 ﻿using Events.Domain.Tickets;
 
-namespace Events.Application.Common;
+namespace Events.Application.Common.Interfaces;
 
 public interface ITicketRepository
 {

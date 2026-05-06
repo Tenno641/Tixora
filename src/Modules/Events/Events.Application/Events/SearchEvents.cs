@@ -1,10 +1,10 @@
 ﻿using System.Data.Common;
 using Dapper;
 using Events.Application.Common;
-using Events.Application.Common.Contracts.Events;
-using Events.Application.Common.Contracts.Mappings;
+using Events.Application.Common.Mappings;
 using Events.Domain.Events;
 using MediatR;
+using Tixora.Shared.Application.Common;
 
 namespace Events.Application.Events;
 
@@ -73,3 +73,5 @@ public class SearchEvents: IRequestHandler<SearchEventsQuery, SearchEventsRespon
 }
 
 public record SearchEventsResponse(List<EventResponse> Events, int Total, int Page, int PageSize);
+
+public record EventResponse(Guid Id, string Title, string Description, string Location, DateTime StartAt, DateTime EndAt, string State);

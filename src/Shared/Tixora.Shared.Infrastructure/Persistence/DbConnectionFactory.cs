@@ -1,8 +1,8 @@
 ﻿using System.Data.Common;
-using Events.Application.Common;
 using Npgsql;
+using Tixora.Shared.Application.Common;
 
-namespace Events.Infrastructure.Persistence.Repositories;
+namespace Tixora.Shared.Infrastructure.Persistence;
 
 public class DbConnectionFactory: IDbConnectionFactory
 {

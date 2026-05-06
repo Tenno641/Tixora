@@ -1,8 +1,9 @@
 ﻿using Dapper;
 using Events.Application.Common;
+using Events.Application.Common.Mappings;
 using Events.Domain.Tickets;
 using MediatR;
-using Events.Application.Common.Contracts.Mappings;
+using Tixora.Shared.Application.Common;
 
 namespace Events.Application.Tickets;
 

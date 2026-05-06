@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using Events.Application.Common;
+using Events.Application.Common.Interfaces;
 using Events.Domain.Events;
 using Events.Domain.Tickets;
 using MediatR;

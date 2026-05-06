@@ -2,6 +2,7 @@
 using Dapper;
 using Events.Application.Common;
 using MediatR;
+using Tixora.Shared.Application.Common;
 
 namespace Events.Application.Categories;
 

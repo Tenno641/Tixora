@@ -1,5 +1,5 @@
-﻿using Events.Domain.Common;
-using Events.Domain.Tickets;
+﻿using Events.Domain.Tickets;
+using Tixora.Shared.Domain.Common;
 
 namespace Events.Domain.Categories;
 

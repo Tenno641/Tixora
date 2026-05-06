@@ -1,6 +1,6 @@
-﻿namespace Events.Application.Common;
+﻿using Events.Domain.Events;
 
-using Domain.Events;
+namespace Events.Application.Common.Interfaces;
 
 public interface IEventsRepository
 {

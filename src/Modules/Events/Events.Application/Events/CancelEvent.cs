@@ -1,8 +1,9 @@
 ﻿using ErrorOr;
 using Events.Application.Common;
-using Events.Domain.Common;
+using Events.Application.Common.Interfaces;
 using Events.Domain.Events;
 using MediatR;
+using Tixora.Shared.Domain.Common;
 
 namespace Events.Application.Events;
 

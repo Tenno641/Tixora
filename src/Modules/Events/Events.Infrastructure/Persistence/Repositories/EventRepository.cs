@@ -1,7 +1,9 @@
 ﻿using System.Data.Common;
 using Dapper;
 using Events.Application.Common;
+using Events.Application.Common.Interfaces;
 using Events.Domain.Events;
+using Tixora.Shared.Application.Common;
 
 namespace Events.Infrastructure.Persistence.Repositories;
 

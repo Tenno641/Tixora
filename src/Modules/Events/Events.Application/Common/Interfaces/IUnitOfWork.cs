@@ -1,4 +1,4 @@
-﻿namespace Events.Application.Common;
+﻿namespace Events.Application.Common.Interfaces;
 
 public interface IUnitOfWork
 {

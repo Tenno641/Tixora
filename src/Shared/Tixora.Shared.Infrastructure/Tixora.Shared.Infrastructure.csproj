@@ -7,12 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Tixora.Shared.Application\Tixora.Shared.Application.csproj" />
-      <ProjectReference Include="..\Events.Domain\Events.Domain.csproj" />
+      <ProjectReference Include="..\Tixora.Shared.Application\Tixora.Shared.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.1.72" />
+      <PackageReference Include="Npgsql" Version="10.0.2" />
     </ItemGroup>
 
 </Project>

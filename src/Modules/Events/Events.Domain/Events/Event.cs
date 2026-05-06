@@ -1,6 +1,6 @@
 ﻿using ErrorOr;
 using Events.Domain.Categories;
-using Events.Domain.Common;
+using Tixora.Shared.Domain.Common;
 
 namespace Events.Domain.Events;
 

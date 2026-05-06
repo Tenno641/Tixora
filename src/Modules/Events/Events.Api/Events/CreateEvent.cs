@@ -1,7 +1,6 @@
 ﻿using ErrorOr;
 using Events.Api.Common;
 using Events.Api.Common.Validation;
-using Events.Application.Common.Contracts.Events;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace Events.Api.Events;
+
+public record CreateEventRequest(string Title, string Description, string Location, DateTime StartAt, DateTime EndAt, Guid CategoryId);
 
 public static class CreateEvent
 {
@@ -30,7 +31,7 @@ public static class CreateEvent
 
                 return result.IsError
                     ? result.ToProblemDetails()
-                    : Results.CreatedAtRoute("GetEvent", new { id = result}, result);
+                    : Results.CreatedAtRoute("GetEvent", new { id = result.Value}, result.Value);
 
         })
         .WithTags(Tags.Events)

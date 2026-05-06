@@ -1,4 +1,4 @@
-﻿using Events.Domain.Common;
+﻿using Tixora.Shared.Domain.Common;
 
 namespace Events.Domain.Categories;
 

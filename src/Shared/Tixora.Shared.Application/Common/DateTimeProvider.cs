@@ -1,6 +1,6 @@
-﻿using Events.Domain.Common;
+﻿using Tixora.Shared.Domain.Common;
 
-namespace Events.Application.Common;
+namespace Tixora.Shared.Application.Common;
 
 public class DateTimeProvider: IDateTimeProvider
 {

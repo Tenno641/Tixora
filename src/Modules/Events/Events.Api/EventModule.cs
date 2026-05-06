@@ -10,9 +10,9 @@ namespace Events.Api;
 
 public static class EventModule
 {
-    public static IServiceCollection AddEventDependencies(this IServiceCollection services)
+    public static IServiceCollection AddEventModule(this IServiceCollection services, string connectionString)
     {
-        services.AddInfrastructure();
+        services.AddInfrastructure(connectionString);
         services.AddApplication();
 
         return services;

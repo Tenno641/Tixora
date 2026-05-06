@@ -1,7 +1,7 @@
-﻿using Events.Application.Common.Contracts.Events;
+﻿using Events.Application.Events;
 using Events.Domain.Events;
 
-namespace Events.Application.Common.Contracts.Mappings;
+namespace Events.Application.Common.Mappings;
 
 public static class EventMappings
 {

@@ -10,4 +10,9 @@
     <Project Path="src/Modules/Events/Events.Domain/Events.Domain.csproj" />
     <Project Path="src/Modules/Events/Events.Infrastructure/Events.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Tixora.Shared.Application/Tixora.Shared.Application.csproj" />
+    <Project Path="src/Shared/Tixora.Shared.Domain/Tixora.Shared.Domain.csproj" />
+    <Project Path="src/Shared/Tixora.Shared.Infrastructure/Tixora.Shared.Infrastructure.csproj" />
+  </Folder>
 </Solution>

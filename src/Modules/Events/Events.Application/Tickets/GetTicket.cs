@@ -3,6 +3,7 @@ using Events.Application.Common;
 using Events.Domain.Tickets;
 using MediatR;
 using ErrorOr;
+using Tixora.Shared.Application.Common;
 
 namespace Events.Application.Tickets;
 

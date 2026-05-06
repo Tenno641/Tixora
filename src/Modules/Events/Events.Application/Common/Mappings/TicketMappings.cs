@@ -1,7 +1,7 @@
 ﻿using Events.Application.Tickets;
 using Events.Domain.Tickets;
 
-namespace Events.Application.Common.Contracts.Mappings;
+namespace Events.Application.Common.Mappings;
 
 public static class TicketMappings
 {

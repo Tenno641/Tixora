@@ -1,5 +1,4 @@
 ﻿using Events.Api.Common;
-using Events.Application.Common.Contracts.Events;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;

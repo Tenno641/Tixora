@@ -1,28 +1,24 @@
-﻿using Events.Application.Common;
+﻿using Events.Application.Common.Interfaces;
 using Events.Infrastructure.Persistence;
 using Events.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Npgsql;
 
 namespace Events.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
     {
         services
-            .AddPersistence()
+            .AddPersistence(connectionString)
             .AddRepositories();
 
         return services;
     }
 
-    private static IServiceCollection AddPersistence(this IServiceCollection services)
+    private static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
     {
-        // string? connectionString = Environment.GetEnvironmentVariable("DatabaseConnectionString");
-        string connectionString = "Server=localhost; Port=5432; Username=postgres; Password=password; Database=Tixora;";
-            
         services.AddDbContext<EventsDbContext>(options =>
         {
             // options.UseNpgsql(Environment.GetEnvironmentVariable("DatabaseConnectionString"), postgresOptions =>
@@ -33,9 +29,6 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<EventsDbContext>());
-        services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
-
-        services.AddSingleton(new NpgsqlDataSourceBuilder(connectionString).Build());
 
         return services;
     }

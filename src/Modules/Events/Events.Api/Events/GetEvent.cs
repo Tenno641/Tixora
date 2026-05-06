@@ -1,7 +1,6 @@
 ﻿using ErrorOr;
 using Events.Api.Common;
 using Events.Api.Common.Validation;
-using Events.Application.Common.Contracts.Events;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;

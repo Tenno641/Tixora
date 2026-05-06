@@ -1,7 +1,6 @@
-﻿using Events.Domain;
-using Events.Domain.Categories;
+﻿using Events.Domain.Categories;
 
-namespace Events.Application.Common;
+namespace Events.Application.Common.Interfaces;
 
 public interface ICategoryRepository
 {

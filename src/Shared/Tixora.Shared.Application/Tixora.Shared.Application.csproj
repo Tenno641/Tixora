@@ -7,12 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Tixora.Shared.Application\Tixora.Shared.Application.csproj" />
-      <ProjectReference Include="..\Events.Domain\Events.Domain.csproj" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+      <PackageReference Include="MediatR" Version="14.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.1.72" />
+      <ProjectReference Include="..\Tixora.Shared.Domain\Tixora.Shared.Domain.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Events.Application.Common;
+namespace Tixora.Shared.Application.Common;
 
 public interface IDbConnectionFactory
 {

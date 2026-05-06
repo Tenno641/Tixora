@@ -1,22 +1,23 @@
-﻿using FluentValidation;
+﻿using System.Reflection;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Tixora.Shared.Application.Common;
 using Tixora.Shared.Application.Common.Behaviors;
 using Tixora.Shared.Domain.Common;
 
-namespace Events.Application;
+namespace Tixora.Shared.Application;
 
-public static class DependencyInjection
+public static class ApplicationConfiguration
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddSharedApplicationConfiguration(this IServiceCollection services, Assembly[] assemblies)
     {
         services.AddMediatR(options =>
         {
-            options.RegisterServicesFromAssemblyContaining(typeof(DependencyInjection));
+            options.RegisterServicesFromAssemblies(assemblies);
             options.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
-        services.AddValidatorsFromAssemblyContaining(typeof(DependencyInjection));
+        services.AddValidatorsFromAssemblies(assemblies);
 
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 

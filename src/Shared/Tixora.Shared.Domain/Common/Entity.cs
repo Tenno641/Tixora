@@ -1,4 +1,4 @@
-﻿namespace Events.Domain.Common;
+﻿namespace Tixora.Shared.Domain.Common;
 
 public class Entity
 {

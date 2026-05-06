@@ -4,6 +4,7 @@ using ErrorOr;
 using Events.Application.Common;
 using Events.Domain.Categories;
 using MediatR;
+using Tixora.Shared.Application.Common;
 
 namespace Events.Application.Categories;
 
@@ -32,7 +33,7 @@ internal sealed class GetCategory : IRequestHandler<GetCategoryQuery, ErrorOr<Ca
              WHERE "Id" = @CategoryId
              """;
 
-        CategoryResponse? category = await connection.QuerySingleOrDefaultAsync<CategoryResponse>(sql, request);
+        CategoryResponse? category = await connection.QuerySingleOrDefaultAsync<CategoryResponse?>(sql, request);
 
         if (category is null)
             return CategoryErrors.CategoryNotFound;

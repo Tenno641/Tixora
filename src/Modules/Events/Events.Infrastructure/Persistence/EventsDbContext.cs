@@ -1,4 +1,5 @@
 ﻿using Events.Application.Common;
+using Events.Application.Common.Interfaces;
 using Events.Domain;
 using Events.Domain.Categories;
 using Events.Domain.Tickets;
