@@ -1,5 +1,6 @@
 using Events.Api;
 using Scalar.AspNetCore;
+using Tixora.Bootstrapper.Extensions;
 using Tixora.Shared.Application;
 using Tixora.Shared.Infrastructure;
 
@@ -13,6 +14,8 @@ const string connectionString = "Server=localhost; Port=5432; Username=postgres;
 builder.Services.AddInfrastructureSharedConfiguration(connectionString);
 
 builder.Services.AddEventModule(connectionString);
+
+builder.Configuration.AddModulesConfiguration(["events"]);
 
 var app = builder.Build();
 
