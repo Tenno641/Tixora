@@ -4,16 +4,13 @@ using Serilog;
 using Tixora.Bootstrapper.Extensions;
 using Tixora.Shared.Application;
 using Tixora.Shared.Infrastructure;
-using ILogger = Serilog.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
 
-ILogger logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration)
-    .CreateLogger();
-
-builder.Logging.AddSerilog(logger);
-Log.Logger = logger;
+builder.Host.UseSerilog((context, loggerConfiguration) =>
+{
+    loggerConfiguration.ReadFrom.Configuration(context.Configuration);
+});
 
 builder.Services.AddOpenApi();
 
@@ -27,6 +24,8 @@ builder.Services.AddEventModule(connectionString);
 builder.Configuration.AddModulesConfiguration(["events"]);
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 app.MapOpenApi();
 app.MapScalarApiReference();

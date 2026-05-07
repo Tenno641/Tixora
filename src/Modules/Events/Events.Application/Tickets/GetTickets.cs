@@ -1,15 +1,15 @@
 ﻿using Dapper;
-using Events.Application.Common;
 using Events.Application.Common.Mappings;
 using Events.Domain.Tickets;
 using MediatR;
 using Tixora.Shared.Application.Common;
+using ErrorOr;
 
 namespace Events.Application.Tickets;
 
-public record GetTicketsQuery(Guid EventId): IRequest<List<TicketResponse>>;
+public record GetTicketsQuery(Guid EventId): IRequest<ErrorOr<List<TicketResponse>>>;
 
-public class GetTickets : IRequestHandler<GetTicketsQuery, List<TicketResponse>>
+public class GetTickets : IRequestHandler<GetTicketsQuery, ErrorOr<List<TicketResponse>>>
 {
     private readonly IDbConnectionFactory _dbConnectionFactory;
     
@@ -18,7 +18,7 @@ public class GetTickets : IRequestHandler<GetTicketsQuery, List<TicketResponse>>
         _dbConnectionFactory = dbConnectionFactory;
     }
     
-    public async Task<List<TicketResponse>> Handle(GetTicketsQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<List<TicketResponse>>> Handle(GetTicketsQuery request, CancellationToken cancellationToken)
     {
         await using var connection = await _dbConnectionFactory.OpenConnectionAsync();
 

@@ -1,18 +1,18 @@
 ﻿using System.Data.Common;
 using Dapper;
-using Events.Application.Common;
 using Events.Application.Common.Mappings;
 using Events.Domain.Events;
 using MediatR;
 using Tixora.Shared.Application.Common;
+using ErrorOr;
 
 namespace Events.Application.Events;
 
-public record SearchEventsQuery(string? Title, DateTime? StartAt, DateTime? EndAt, int PageSize, int Page): IRequest<SearchEventsResponse>;
+public record SearchEventsQuery(string? Title, DateTime? StartAt, DateTime? EndAt, int PageSize, int Page): IRequest<ErrorOr<SearchEventsResponse>>;
 
 public record SearchEventsParameters(string? Title, DateTime? StartAt, DateTime? EndAt, int PageSize, int Page);
 
-public class SearchEvents: IRequestHandler<SearchEventsQuery, SearchEventsResponse>
+public class SearchEvents: IRequestHandler<SearchEventsQuery, ErrorOr<SearchEventsResponse>>
 {
     private readonly IDbConnectionFactory _dbConnectionFactory;
     
@@ -21,7 +21,7 @@ public class SearchEvents: IRequestHandler<SearchEventsQuery, SearchEventsRespon
         _dbConnectionFactory = dbConnectionFactory;
     }
     
-    public async Task<SearchEventsResponse> Handle(SearchEventsQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<SearchEventsResponse>> Handle(SearchEventsQuery request, CancellationToken cancellationToken)
     {
         await using var connection = await _dbConnectionFactory.OpenConnectionAsync();
 
@@ -60,7 +60,7 @@ public class SearchEvents: IRequestHandler<SearchEventsQuery, SearchEventsRespon
                      SELECT COUNT(*)
                      FROM events."Events" as e
                      WHERE
-                         ({searchEventsParameters.Title is null} OR LOWER(e."Title") LIKE LOWER(@Title)) AND
+                         ({string.IsNullOrEmpty(searchEventsParameters.Title)} OR LOWER(e."Title") LIKE LOWER(@Title)) AND
                          ({searchEventsParameters.StartAt is null} OR e."StartAt" = @StartAt) AND
                          ({searchEventsParameters.EndAt is null} OR e."EndAt" = @EndAt) AND
                          e."State" = 1

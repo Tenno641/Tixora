@@ -17,3 +17,13 @@ services:
       - POSTGRES_USER=postgres
     ports:
       - 5432:5432
+
+  tixora.seq:
+    image: datalust/seq
+    container_name: tixora_seq
+    environment:
+      - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_ADMINUSERNAME=admin
+      - SEQ_FIRSTRUN_ADMINPASSWORD=admin
+    ports:
+      - 5341:80

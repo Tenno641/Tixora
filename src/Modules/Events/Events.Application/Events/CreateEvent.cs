@@ -58,22 +58,29 @@ public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
 {
     public CreateEventCommandValidator()
     {
-        RuleFor(c => c.Title)
+        RuleFor(e => e.Title)
             .NotEmpty()
             .MaximumLength(128);
         
-        RuleFor(c => c.Description)
+        RuleFor(e => e.Description)
             .NotEmpty()
             .MaximumLength(128);
         
-        RuleFor(c => c.Location)
+        RuleFor(e => e.Location)
             .NotEmpty()
             .MaximumLength(128);
         
-        RuleFor(c => c.StartAt).NotEmpty();
-        RuleFor(c => c.EndAt).NotEmpty();
-        RuleFor(c => c.EndAt)
+        RuleFor(e => e.StartAt).NotEmpty();
+        RuleFor(e => e.StartAt)
+            .GreaterThan(DateTime.Now)
+            .WithMessage("Start date must be in the future");
+        
+        RuleFor(e => e.EndAt).NotEmpty();
+        RuleFor(e => e.EndAt)
             .Must((command, endAt) => command.StartAt < endAt)
             .WithMessage("The end time must be before the start time.");
+
+        RuleFor(e => e.CategoryId)
+            .NotEmpty();
     }
 }

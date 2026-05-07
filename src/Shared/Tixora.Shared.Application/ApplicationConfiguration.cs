@@ -15,6 +15,7 @@ public static class ApplicationConfiguration
         {
             options.RegisterServicesFromAssemblies(assemblies);
             options.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            options.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
         services.AddValidatorsFromAssemblies(assemblies);

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using ErrorOr;
+using Events.Api.Common.Validation;
 
 namespace Events.Api.Categories;
 
@@ -14,9 +16,11 @@ internal static class GetCategories
     {
         app.MapGet("categories", async ([FromServices] ISender sender) =>
         {
-            List<CategoryResponse> result = await sender.Send(new GetCategoriesQuery());
+            ErrorOr<List<CategoryResponse>> result = await sender.Send(new GetCategoriesQuery());
             
-            return Results.Ok(result);
+            return result.IsError
+                ? result.ToProblemDetails()
+                : Results.Ok(result.Value);
         })
         .Produces<List<CategoryResponse>>()
         .WithTags(Tags.Categories);

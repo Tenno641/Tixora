@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using ErrorOr;
+using Events.Api.Common.Validation;
 
 namespace Events.Api.Events;
 
@@ -17,9 +19,11 @@ public static class SearchEvents
         {
             SearchEventsQuery query = new SearchEventsQuery(title, startAt, endAt, pageSize ?? 15, page ?? 1);
 
-            SearchEventsResponse response = await sender.Send(query);
+            ErrorOr<SearchEventsResponse> result = await sender.Send(query);
 
-            return response;
+            return result.IsError
+                ? result.ToProblemDetails()
+                : Results.Ok(result.Value);
         })
         .WithTags(Tags.Events)
         .Produces<List<EventResponse>>();

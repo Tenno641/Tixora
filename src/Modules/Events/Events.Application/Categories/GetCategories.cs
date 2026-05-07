@@ -1,14 +1,14 @@
 ﻿using System.Data.Common;
 using Dapper;
-using Events.Application.Common;
 using MediatR;
 using Tixora.Shared.Application.Common;
+using ErrorOr;
 
 namespace Events.Application.Categories;
 
-public sealed record GetCategoriesQuery : IRequest<List<CategoryResponse>>;
+public sealed record GetCategoriesQuery : IRequest<ErrorOr<List<CategoryResponse>>>;
 
-internal sealed class GetCategories : IRequestHandler<GetCategoriesQuery, List<CategoryResponse>>
+internal sealed class GetCategories : IRequestHandler<GetCategoriesQuery, ErrorOr<List<CategoryResponse>>>
 {
     private readonly IDbConnectionFactory _dbConnectionFactory;
     
@@ -17,7 +17,7 @@ internal sealed class GetCategories : IRequestHandler<GetCategoriesQuery, List<C
         _dbConnectionFactory = dbConnectionFactory;
     }
     
-    public async Task<List<CategoryResponse>> Handle(
+    public async Task<ErrorOr<List<CategoryResponse>>> Handle(
         GetCategoriesQuery request,
         CancellationToken cancellationToken)
     {

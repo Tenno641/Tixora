@@ -4,6 +4,8 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using ErrorOr;
+using Events.Api.Common.Validation;
 
 namespace Events.Api.Tickets;
 
@@ -15,9 +17,11 @@ public static class GetTickets
         {
             GetTicketsQuery query = new GetTicketsQuery(eventId);
 
-            List<TicketResponse> tickets = await sender.Send(query);
+            ErrorOr<List<TicketResponse>> result = await sender.Send(query);
 
-            return Results.Ok(tickets);
+            return result.IsError
+                ? result.ToProblemDetails()
+                : Results.Ok(result.Value);
         })
         .WithTags(Tags.Tickets)
         .Produces<List<TicketResponse>>(StatusCodes.Status200OK);
