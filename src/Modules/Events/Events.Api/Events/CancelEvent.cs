@@ -21,7 +21,7 @@ public static class CancelEvent
 
             return result.IsError
                 ? result.ToProblemDetails()
-                : Results.Ok();
+                : Results.NoContent();
         })
         .WithTags(Tags.Events)
         .Produces(StatusCodes.Status400BadRequest)

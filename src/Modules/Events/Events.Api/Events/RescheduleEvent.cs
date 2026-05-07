@@ -21,7 +21,7 @@ public static class RescheduleEvent
 
             return result.IsError
                 ? result.ToProblemDetails()
-                : Results.Ok();
+                : Results.NoContent();
         })
         .WithTags(Tags.Events)
         .ProducesProblem(StatusCodes.Status404NotFound);

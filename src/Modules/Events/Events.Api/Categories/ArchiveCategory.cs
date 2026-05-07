@@ -22,7 +22,7 @@ internal static class ArchiveCategory
 
             return result.IsError
                 ? result.ToProblemDetails()
-                : Results.Ok();
+                : Results.NoContent();
         })
         .Produces(StatusCodes.Status409Conflict)
         .Produces(StatusCodes.Status200OK)
