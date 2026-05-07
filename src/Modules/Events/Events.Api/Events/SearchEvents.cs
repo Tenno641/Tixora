@@ -1,18 +1,18 @@
-﻿using Events.Api.Common;
-using Events.Application.Events;
+﻿using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using ErrorOr;
-using Events.Api.Common.Validation;
+using Tixora.Shared.Presentation.Common;
+using Tixora.Shared.Presentation.Common.Validation;
 
 namespace Events.Api.Events;
 
-public static class SearchEvents
+internal sealed class SearchEvents: IEndpoint
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("events", async (string? title, DateTime? startAt, DateTime? endAt, int? pageSize, int? page, 
             [FromServices] ISender sender) =>

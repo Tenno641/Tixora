@@ -37,7 +37,7 @@ public class SearchEvents: IRequestHandler<SearchEventsQuery, ErrorOr<SearchEven
                       SELECT *
                       FROM events."Events" as e
                       WHERE
-                          ({searchEventsParameters.Title is null} OR LOWER(e."Title") LIKE LOWER(@Title)) AND
+                          ({string.IsNullOrEmpty(searchEventsParameters.Title)} OR LOWER(e."Title") LIKE LOWER(@Title)) AND
                           ({searchEventsParameters.StartAt is null} OR e."StartAt" = @StartAt) AND
                           ({searchEventsParameters.EndAt is null} OR e."EndAt" = @EndAt) AND
                           e."State" = 1

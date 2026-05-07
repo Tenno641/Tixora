@@ -1,4 +1,4 @@
-﻿namespace Events.Api.Common;
+﻿namespace Tixora.Shared.Presentation.Common;
 
 public static class Tags
 {

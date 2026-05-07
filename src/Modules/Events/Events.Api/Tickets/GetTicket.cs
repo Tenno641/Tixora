@@ -1,17 +1,17 @@
 ﻿using ErrorOr;
-using Events.Api.Common;
-using Events.Api.Common.Validation;
 using Events.Application.Tickets;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Tixora.Shared.Presentation.Common;
+using Tixora.Shared.Presentation.Common.Validation;
 
 namespace Events.Api.Tickets;
 
-public static class GetTicket
+internal sealed class GetTicket: IEndpoint
 {
-    public static void AddEndpoint(this IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("events/{eventId:guid}/tickets/{ticketId:guid}", async (Guid ticketId, Guid eventId, ISender sender) =>
         {

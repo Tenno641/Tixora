@@ -34,7 +34,7 @@ app.UseSerilogRequestLogging();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.AddEventEndpoints();
+app.MapEndpoints(app);
 
 app.UseExceptionHandler();
 

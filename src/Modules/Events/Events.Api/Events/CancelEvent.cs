@@ -1,17 +1,17 @@
 ﻿using ErrorOr;
-using Events.Api.Common;
-using Events.Api.Common.Validation;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Tixora.Shared.Presentation.Common;
+using Tixora.Shared.Presentation.Common.Validation;
 
 namespace Events.Api.Events;
 
-public static class CancelEvent
+internal sealed class CancelEvent: IEndpoint
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("event/{eventId:guid}/cancel", async (Guid eventId, ISender sender) =>
         {
@@ -25,6 +25,6 @@ public static class CancelEvent
         })
         .WithTags(Tags.Events)
         .Produces(StatusCodes.Status400BadRequest)
-        .Produces(StatusCodes.Status200OK);
+        .Produces(StatusCodes.Status204NoContent);
     }
 }

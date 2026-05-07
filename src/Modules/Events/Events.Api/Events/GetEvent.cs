@@ -1,18 +1,18 @@
 ﻿using ErrorOr;
-using Events.Api.Common;
-using Events.Api.Common.Validation;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Tixora.Shared.Presentation.Common;
+using Tixora.Shared.Presentation.Common.Validation;
 
 namespace Events.Api.Events;
 
-public static class GetEvent
+internal sealed class GetEvent: IEndpoint
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("events/{id:guid}", async (Guid id, [FromServices] ISender sender) =>
         {

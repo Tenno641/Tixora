@@ -1,7 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Http;
 
-namespace Events.Api.Common.Validation;
+namespace Tixora.Shared.Presentation.Common.Validation;
 
 public static class ErrorExtensions
 {

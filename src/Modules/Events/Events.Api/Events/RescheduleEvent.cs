@@ -1,17 +1,17 @@
 ﻿using ErrorOr;
-using Events.Api.Common;
-using Events.Api.Common.Validation;
 using Events.Application.Events;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Tixora.Shared.Presentation.Common;
+using Tixora.Shared.Presentation.Common.Validation;
 
 namespace Events.Api.Events;
 
-public static class RescheduleEvent
+internal sealed class RescheduleEvent: IEndpoint
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("events/{eventId:guid}/reschedule", async (Guid eventId, DateTime startAt, DateTime endAt, ISender sender) =>
         {
@@ -24,6 +24,7 @@ public static class RescheduleEvent
                 : Results.NoContent();
         })
         .WithTags(Tags.Events)
+        .Produces(StatusCodes.Status204NoContent)
         .ProducesProblem(StatusCodes.Status404NotFound);
     }
 }

@@ -1,20 +1,20 @@
 ﻿using ErrorOr;
-using Events.Api.Common;
-using Events.Api.Common.Validation;
 using Events.Application.Tickets;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Tixora.Shared.Presentation.Common;
+using Tixora.Shared.Presentation.Common.Validation;
 
 namespace Events.Api.Tickets;
 
 public record CreateTicketRequest(string Name, string Currency,  decimal Price, int Quantity);
 
-public static class CreateTicket
+internal sealed class CreateTicket: IEndpoint
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("events/{eventId:guid}/tickets", async (Guid eventId, CreateTicketRequest request, [FromServices] ISender sender) =>
         {

@@ -1,18 +1,18 @@
-﻿using Events.Api.Common;
-using Events.Application.Categories;
+﻿using Events.Application.Categories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using ErrorOr;
-using Events.Api.Common.Validation;
+using Tixora.Shared.Presentation.Common;
+using Tixora.Shared.Presentation.Common.Validation;
 
 namespace Events.Api.Categories;
 
-internal static class GetCategories
+internal sealed class GetCategories: IEndpoint
 {
-    public static void AddEndpoint(IEndpointRouteBuilder app)
+    public void AddEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("categories", async ([FromServices] ISender sender) =>
         {

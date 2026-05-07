@@ -14,5 +14,6 @@
     <Project Path="src/Shared/Tixora.Shared.Application/Tixora.Shared.Application.csproj" />
     <Project Path="src/Shared/Tixora.Shared.Domain/Tixora.Shared.Domain.csproj" />
     <Project Path="src/Shared/Tixora.Shared.Infrastructure/Tixora.Shared.Infrastructure.csproj" />
+    <Project Path="src/Shared/Tixora.Shared.Presentation/Tixora.Shared.Presentation.csproj" />
   </Folder>
 </Solution>
