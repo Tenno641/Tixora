@@ -14,8 +14,8 @@ public static class ApplicationConfiguration
         services.AddMediatR(options =>
         {
             options.RegisterServicesFromAssemblies(assemblies);
-            options.AddOpenBehavior(typeof(ValidationBehavior<,>));
             options.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            options.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
 
         services.AddValidatorsFromAssemblies(assemblies);
