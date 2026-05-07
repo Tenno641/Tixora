@@ -1,6 +1,8 @@
-﻿namespace Tixora.Shared.Domain.Common;
+﻿using MediatR;
 
-public interface IDomainEvent
+namespace Tixora.Shared.Domain.Common;
+
+public interface IDomainEvent: INotification
 {
     Guid Id { get; }
     DateTime OccurredOn { get; }

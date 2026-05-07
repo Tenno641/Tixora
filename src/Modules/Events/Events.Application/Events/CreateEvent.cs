@@ -1,11 +1,10 @@
 ﻿using ErrorOr;
-using Events.Application.Common;
 using Events.Application.Common.Interfaces;
-using Events.Domain;
 using Events.Domain.Categories;
 using Events.Domain.Events;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Events.Application.Events;
 
@@ -82,5 +81,21 @@ public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
 
         RuleFor(e => e.CategoryId)
             .NotEmpty();
+    }
+}
+
+public class EventCreatedEventHandler: INotificationHandler<EventCreatedEvent>
+{
+    private readonly ILogger<EventCreatedEventHandler> _logger;
+    
+    public EventCreatedEventHandler(ILogger<EventCreatedEventHandler> logger)
+    {
+        _logger = logger;
+    }
+    
+    public Task Handle(EventCreatedEvent notification, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("New Event");
+        return Task.CompletedTask;
     }
 }

@@ -14,6 +14,8 @@ public class Category: Entity
         Guid? id = null)
     {
         Category category = new Category(name, isArchived, id);
+        
+        category.RaiseDomainEvent(new CategoryCreatedEvent(category.Id));
 
         return category;
     }

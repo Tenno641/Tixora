@@ -1,5 +1,6 @@
 ﻿using Events.Application.Common.Interfaces;
 using Events.Infrastructure.Persistence;
+using Events.Infrastructure.Persistence.Interceptors;
 using Events.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,13 +20,15 @@ public static class DependencyInjection
 
     private static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
     {
-        services.AddDbContext<EventsDbContext>(options =>
+        services.AddSingleton<DomainEventsPublisherInterceptor>();
+        services.AddDbContext<EventsDbContext>((serviceProvider, options) =>
         {
             // options.UseNpgsql(Environment.GetEnvironmentVariable("DatabaseConnectionString"), postgresOptions =>
             options.UseNpgsql(connectionString, postgresOptions =>
             {
                 postgresOptions.MigrationsHistoryTable("Events_Migrations_History", Schema.Events);
             });
+            options.AddInterceptors(serviceProvider.GetRequiredService<DomainEventsPublisherInterceptor>());
         });
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<EventsDbContext>());

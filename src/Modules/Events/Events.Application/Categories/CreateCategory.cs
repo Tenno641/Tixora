@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
-using Events.Application.Common;
 using Events.Application.Common.Interfaces;
 using Events.Domain.Categories;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Events.Application.Categories;
 
@@ -37,5 +37,21 @@ public sealed class CreateCategoryCommandValidator : AbstractValidator<CreateCat
     public CreateCategoryCommandValidator()
     {
         RuleFor(c => c.Name).NotEmpty();
+    }
+}
+
+public class CategoryCreatedEventHandler: INotificationHandler<CategoryCreatedEvent>
+{
+    private readonly ILogger<CategoryCreatedEventHandler> _logger;
+    
+    public CategoryCreatedEventHandler(ILogger<CategoryCreatedEventHandler> logger)
+    {
+        _logger = logger;
+    }
+    
+    public Task Handle(CategoryCreatedEvent notification, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("New Category");
+        return Task.CompletedTask;
     }
 }
