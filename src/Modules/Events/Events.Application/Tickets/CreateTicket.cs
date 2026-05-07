@@ -3,6 +3,7 @@ using Events.Application.Common;
 using Events.Application.Common.Interfaces;
 using Events.Domain.Events;
 using Events.Domain.Tickets;
+using FluentValidation;
 using MediatR;
 
 namespace Events.Application.Tickets;
@@ -40,5 +41,16 @@ public class CreateTicket: IRequestHandler<CreateTicketCommand, ErrorOr<Guid>>
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return ticket.Id;
+    }
+}
+
+public sealed class CreateTicketCommandValidator : AbstractValidator<CreateTicketCommand>
+{
+    public CreateTicketCommandValidator()
+    {
+        RuleFor(e => e.Name).NotEmpty();
+        RuleFor(e => e.Currency).NotEmpty();
+        RuleFor(e => e.Quantity).GreaterThan(0);
+        RuleFor(e => e.Price).GreaterThanOrEqualTo(0);
     }
 }

@@ -2,6 +2,7 @@ using Events.Api;
 using Scalar.AspNetCore;
 using Serilog;
 using Tixora.Bootstrapper.Extensions;
+using Tixora.Bootstrapper.Middleware;
 using Tixora.Shared.Application;
 using Tixora.Shared.Infrastructure;
 
@@ -11,6 +12,9 @@ builder.Host.UseSerilog((context, loggerConfiguration) =>
 {
     loggerConfiguration.ReadFrom.Configuration(context.Configuration);
 });
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddOpenApi();
 
@@ -31,5 +35,7 @@ app.MapOpenApi();
 app.MapScalarApiReference();
 
 app.AddEventEndpoints();
+
+app.UseExceptionHandler();
 
 app.Run();

@@ -32,7 +32,7 @@ internal sealed class CreateCategory: IRequestHandler<CreateCategoryCommand, Err
     }
 }
 
-internal sealed class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
+public sealed class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
 {
     public CreateCategoryCommandValidator()
     {
