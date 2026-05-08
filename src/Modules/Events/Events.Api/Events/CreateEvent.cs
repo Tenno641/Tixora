@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using Tixora.Shared.Presentation.Common;
-using Tixora.Shared.Presentation.Common.Validation;
+using Tixora.Shared.Api.Common;
+using Tixora.Shared.Api.Common.Validation;
 
 namespace Events.Api.Events;
 

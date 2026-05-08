@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Tixora.Shared.Presentation\Tixora.Shared.Presentation.csproj" />
+      <ProjectReference Include="..\..\..\Shared\Tixora.Shared.Api\Tixora.Shared.Api.csproj" />
       <ProjectReference Include="..\Events.Application\Events.Application.csproj" />
       <ProjectReference Include="..\Events.Infrastructure\Events.Infrastructure.csproj" />
     </ItemGroup>

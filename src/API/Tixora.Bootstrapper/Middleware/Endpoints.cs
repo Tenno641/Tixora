@@ -1,4 +1,4 @@
-﻿using Tixora.Shared.Presentation.Common;
+﻿using Tixora.Shared.Api.Common;
 
 namespace Tixora.Bootstrapper.Middleware;
 

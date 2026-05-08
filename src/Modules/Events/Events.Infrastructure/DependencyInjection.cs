@@ -11,9 +11,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
     {
-        services
-            .AddPersistence(connectionString)
-            .AddRepositories();
+        services.AddPersistence(connectionString);
 
         return services;
     }
@@ -33,15 +31,10 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<EventsDbContext>());
 
-        return services;
-    }
-
-    private static IServiceCollection AddRepositories(this IServiceCollection services)
-    {
         services.AddScoped<IEventsRepository, EventRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ITicketRepository, TicketRepository>();
-
+        
         return services;
     }
 }
