@@ -9,12 +9,20 @@
     <Project Path="src/Modules/Events/Events.Application/Events.Application.csproj" />
     <Project Path="src/Modules/Events/Events.Domain/Events.Domain.csproj" />
     <Project Path="src/Modules/Events/Events.Infrastructure/Events.Infrastructure.csproj" />
+    <Project Path="src/Modules/Events/Events.PublicApi/Events.PublicApi.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/Tickets/">
+    <Project Path="src/Modules/Tickets.Api/Tickets.Api.csproj" />
+    <Project Path="src/Modules/Tickets.Application/Tickets.Application.csproj" />
+    <Project Path="src/Modules/Tickets.Domain/Tickets.Domain.csproj" />
+    <Project Path="src/Modules/Tickets.Infrastructure/Tickets.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/src/Modules/Users/">
     <Project Path="src/Modules/Users/Users.Api/Users.Api.csproj" />
     <Project Path="src/Modules/Users/Users.Application/Users.Application.csproj" />
     <Project Path="src/Modules/Users/Users.Domain/Users.Domain.csproj" />
     <Project Path="src/Modules/Users/Users.Infrastructure/Users.Infrastructure.csproj" />
+    <Project Path="src/Modules/Users/Users.PublicApi/Users.PublicApi.csproj" />
   </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/Tixora.Shared.Api/Tixora.Shared.Api.csproj" />

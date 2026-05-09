@@ -2,27 +2,28 @@
 using Events.Infrastructure.Persistence;
 using Events.Infrastructure.Persistence.Interceptors;
 using Events.Infrastructure.Persistence.Repositories;
+using Events.Infrastructure.PublicApi;
+using Events.PublicApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Events.Infrastructure;
 
-public static class DependencyInjection
+public static class EventsModule
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, string databaseConnectionString)
     {
-        services.AddPersistence(connectionString);
+        services.AddPersistence(databaseConnectionString);
 
         return services;
     }
 
-    private static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
+    private static IServiceCollection AddPersistence(this IServiceCollection services, string databaseConnectionString)
     {
         services.AddSingleton<DomainEventsPublisherInterceptor>();
         services.AddDbContext<EventsDbContext>((serviceProvider, options) =>
         {
-            // options.UseNpgsql(Environment.GetEnvironmentVariable("DatabaseConnectionString"), postgresOptions =>
-            options.UseNpgsql(connectionString, postgresOptions =>
+            options.UseNpgsql(databaseConnectionString, postgresOptions =>
             {
                 postgresOptions.MigrationsHistoryTable("Events_Migrations_History", Schema.Events);
             });
@@ -34,6 +35,7 @@ public static class DependencyInjection
         services.AddScoped<IEventsRepository, EventRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ITicketRepository, TicketRepository>();
+        services.AddScoped<IEventsApi, EventsApi>();
         
         return services;
     }

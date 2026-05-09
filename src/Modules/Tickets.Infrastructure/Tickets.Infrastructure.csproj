@@ -5,16 +5,14 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
+
     <ItemGroup>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
     </ItemGroup>
-    
+
     <ItemGroup>
-      <ProjectReference Include="..\..\..\Shared\Tixora.Shared.Infrastructure\Tixora.Shared.Infrastructure.csproj" />
-      <ProjectReference Include="..\Users.Application\Users.Application.csproj" />
-      <ProjectReference Include="..\Users.Domain\Users.Domain.csproj" />
-      <ProjectReference Include="..\Users.PublicApi\Users.PublicApi.csproj" />
+      <ProjectReference Include="..\..\Shared\Tixora.Shared.Infrastructure\Tixora.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\Tickets.Application\Tickets.Application.csproj" />
     </ItemGroup>
 
 </Project>

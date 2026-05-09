@@ -1,6 +1,7 @@
 using Events.Api;
 using Scalar.AspNetCore;
 using Serilog;
+using Tickets.Api;
 using Tixora.Bootstrapper.Extensions;
 using Tixora.Bootstrapper.Middleware;
 using Tixora.Shared.Application;
@@ -19,13 +20,18 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddSharedApplicationConfiguration([Events.Application.AssemblyReference.Assembly, Users.Application.AssemblyReference.Assembly]);
-// string? connectionString = Environment.GetEnvironmentVariable("DatabaseConnectionString");
-const string connectionString = "Server=localhost; Port=5432; Username=postgres; Password=password; Database=Tixora;";
-builder.Services.AddInfrastructureSharedConfiguration(connectionString);
+builder.Services.AddSharedApplicationConfiguration([
+    Events.Application.AssemblyReference.Assembly, 
+    Users.Application.AssemblyReference.Assembly,
+    Tickets.Application.AssemblyReference.Assembly]);
 
-builder.Services.AddEventModule(connectionString);
-builder.Services.AddUsersModule(connectionString);
+string databaseConnectionString = builder.Configuration.GetConnectionString("Database") ?? throw new InvalidOperationException();
+string redisConnectionString = builder.Configuration.GetConnectionString("Redis") ?? throw new InvalidOperationException();
+builder.Services.AddInfrastructureSharedConfiguration(databaseConnectionString, redisConnectionString);
+
+builder.Services.AddEventModule(databaseConnectionString);
+builder.Services.AddUsersModule(databaseConnectionString);
+builder.Services.AddTicketsModule();
 
 builder.Configuration.AddModulesConfiguration(["events", "users"]);
 

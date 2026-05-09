@@ -6,9 +6,9 @@ namespace Users.Api;
 
 public static class UsersModule
 {
-    public static void AddUsersModule(this IServiceCollection services, string connectionString)
+    public static void AddUsersModule(this IServiceCollection services, string databaseConnectionString)
     {
-        services.AddInfrastructure(connectionString);
+        services.AddInfrastructure(databaseConnectionString);
         services.RegisterEndpoints(AssemblyReference.Assembly);
     }
 }

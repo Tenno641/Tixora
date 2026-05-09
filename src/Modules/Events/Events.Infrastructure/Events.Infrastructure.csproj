@@ -11,6 +11,7 @@
       <ProjectReference Include="..\..\..\Shared\Tixora.Shared.Infrastructure\Tixora.Shared.Infrastructure.csproj" />
       <ProjectReference Include="..\Events.Application\Events.Application.csproj" />
       <ProjectReference Include="..\Events.Domain\Events.Domain.csproj" />
+      <ProjectReference Include="..\Events.PublicApi\Events.PublicApi.csproj" />
     </ItemGroup>
 
 </Project>

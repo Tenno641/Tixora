@@ -7,6 +7,8 @@ services:
       dockerfile: src/API/Tixora.Bootstraper/Dockerfile
     environment:
       - ASPNETCORE_URLS=http://localhost:8081;https://localhost:8080
+    depends_on:
+      - tixora.db
 
   tixora.db:
     image: postgres:latest
@@ -27,3 +29,9 @@ services:
       - SEQ_FIRSTRUN_ADMINPASSWORD=admin
     ports:
       - 5341:80
+    
+  tixora.redis:
+    image: redis:latest
+    container_name: tixora_redis
+    ports:
+      - 6379:6379

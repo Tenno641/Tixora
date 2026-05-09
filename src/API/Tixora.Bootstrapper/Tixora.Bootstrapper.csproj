@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Modules\Events\Events.Api\Events.Api.csproj" />
+      <ProjectReference Include="..\..\Modules\Tickets.Api\Tickets.Api.csproj" />
       <ProjectReference Include="..\..\Modules\Users\Users.Api\Users.Api.csproj" />
     </ItemGroup>
 
