@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Tixora.Shared.Api.Common;
 using Tixora.Shared.Api.Common.Validation;
-using Users.Application.Users.UpdateUser;
+using Users.Application.Users;
 
 namespace Users.Api.Users;
 

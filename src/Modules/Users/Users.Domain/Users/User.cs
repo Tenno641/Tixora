@@ -19,7 +19,7 @@ public sealed class User : Entity
             LastName = lastName,
         };
 
-        user.RaiseDomainEvent(new UserRegisteredDomainEvent(user.Id));
+        user.RaiseDomainEvent(new UserRegisteredEvent(user.Id));
 
         return user;
     }
@@ -34,7 +34,7 @@ public sealed class User : Entity
         FirstName = firstName;
         LastName = lastName;
 
-        RaiseDomainEvent(new UserProfileUpdatedDomainEvent(Id, FirstName, LastName));
+        RaiseDomainEvent(new UserProfileUpdatedEvent(Id, FirstName, LastName));
     }
     
     private User() { }

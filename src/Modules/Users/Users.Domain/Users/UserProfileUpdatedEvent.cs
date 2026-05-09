@@ -1,0 +1,12 @@
+﻿using Tixora.Shared.Domain.Common;
+
+namespace Users.Domain.Users;
+
+public sealed class UserProfileUpdatedEvent(Guid userId, string firstName, string lastName) : DomainEvent
+{
+    public Guid UserId { get; init; } = userId;
+
+    public string FirstName { get; init; } = firstName;
+
+    public string LastName { get; init; } = lastName;
+}

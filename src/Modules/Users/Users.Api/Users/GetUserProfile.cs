@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Tixora.Shared.Api.Common;
-using Users.Application.Users.GetUser;
 using ErrorOr;
 using Tixora.Shared.Api.Common.Validation;
+using Users.Application.Users;
 
 namespace Users.Api.Users;
 

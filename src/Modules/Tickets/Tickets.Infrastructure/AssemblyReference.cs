@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Users.Application;
+namespace Tickets.Infrastructure;
 
 public static class AssemblyReference
 {

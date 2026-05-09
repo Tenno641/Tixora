@@ -4,8 +4,6 @@ using Users.Application.Common;
 using Users.Infrastructure.Persistence;
 using Users.Infrastructure.Persistence.Interceptors;
 using Users.Infrastructure.Persistence.Repositories;
-using Users.Infrastructure.PublicApi;
-using Users.PublicApi;
 
 namespace Users.Infrastructure;
 
@@ -33,6 +31,5 @@ public static class UsersModule
         services.AddScoped<IUserRepository, UserRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<UsersDbContext>());
-        services.AddScoped<IUsersApi, UsersApi>();
     }
 }
