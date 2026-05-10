@@ -8,8 +8,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\Tixora.Shared.Application\Tixora.Shared.Application.csproj" />
-      <ProjectReference Include="..\..\Tickets\Tickets.PublicApi\Tickets.PublicApi.csproj" />
       <ProjectReference Include="..\Users.Domain\Users.Domain.csproj" />
+      <ProjectReference Include="..\Users.IntegrationEvents\Users.IntegrationEvents.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -27,7 +27,8 @@ builder.Services.AddSharedApplicationConfiguration([
 
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database") ?? throw new InvalidOperationException();
 string redisConnectionString = builder.Configuration.GetConnectionString("Redis") ?? throw new InvalidOperationException();
-builder.Services.AddInfrastructureSharedConfiguration(databaseConnectionString, redisConnectionString);
+builder.Services.AddInfrastructureSharedConfiguration(databaseConnectionString, redisConnectionString,
+[Tickets.Infrastructure.TicketsModule.ConfigureConsumers]);
 
 builder.Services.AddEventModule(databaseConnectionString);
 builder.Services.AddUsersModule(databaseConnectionString);

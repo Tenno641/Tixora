@@ -1,19 +1,20 @@
 ﻿using ErrorOr;
 using MediatR;
-using Tickets.PublicApi;
+using Tixora.Shared.Application.Common.EventBus;
 using Users.Domain.Users;
+using Users.IntegrationEvents;
 
 namespace Users.Application.Users.RegisterUser;
 
 public class UserCreatedEventHandler: INotificationHandler<UserRegisteredEvent>
 {
-    private readonly ITicketsApi _ticketsApi;
     private readonly ISender _sender;
+    private readonly IEventBus _eventBus;
     
-    public UserCreatedEventHandler(ITicketsApi ticketsApi, ISender sender)
+    public UserCreatedEventHandler(ISender sender, IEventBus eventBus)
     {
-        _ticketsApi = ticketsApi;
         _sender = sender;
+        _eventBus = eventBus;
     }
     
     public async Task Handle(UserRegisteredEvent notification, CancellationToken cancellationToken)
@@ -25,10 +26,11 @@ public class UserCreatedEventHandler: INotificationHandler<UserRegisteredEvent>
         if (result.IsError)
             throw new Exception(); // TODO: Throw an Eventual Consistency Exception
 
-        await _ticketsApi.CreateCustomerAsync(notification.UserId,
-            result.Value.Email,
+        await _eventBus.PublishAsync(
+            new UserRegisteredIntegrationEvent(
+            result.Value.Id,
             result.Value.FirstName,
             result.Value.LastName,
-            cancellationToken);
+            result.Value.Email));
     }
 }
