@@ -29,18 +29,18 @@ public class CreateTicket: IRequestHandler<CreateTicketCommand, ErrorOr<Guid>>
         if (@event == null)
             return EventErrors.EventIsNotFound;
 
-        Ticket ticket = Ticket.Create(
+        TicketType ticketType = TicketType.Create(
             @event: @event,
             name: request.Name,
             currency: request.Currency,
             price: request.Price,
             quantity: request.Quantity);
 
-        _ticketRepository.Insert(ticket);
+        _ticketRepository.Insert(ticketType);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return ticket.Id;
+        return ticketType.Id;
     }
 }
 

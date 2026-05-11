@@ -3,7 +3,7 @@ using Tixora.Shared.Domain.Common;
 
 namespace Events.Domain.Tickets;
 
-public class Ticket: Entity
+public class TicketType: Entity
 {
     public Guid EventId { get; private set; }
     public string Name { get; private set; }
@@ -11,7 +11,7 @@ public class Ticket: Entity
     public decimal Price { get; private set; }
     public int Quantity { get; private set; }
 
-    public static Ticket Create(
+    public static TicketType Create(
         Event @event,
         string name,
         string currency,
@@ -19,7 +19,7 @@ public class Ticket: Entity
         int quantity,
         Guid? id = null)
     {
-        Ticket ticket = new Ticket(
+        TicketType ticketType = new TicketType(
             id: id,
             eventId: @event.Id,
             name: name,
@@ -27,7 +27,7 @@ public class Ticket: Entity
             price: price,
             quantity: quantity);
 
-        return ticket;
+        return ticketType;
     }
 
     public void UpdatePrice(decimal newPrice)
@@ -37,10 +37,10 @@ public class Ticket: Entity
 
         Price = newPrice;
 
-        RaiseDomainEvent(new TicketPriceUpdatedEvent(Id, newPrice));
+        RaiseDomainEvent(new TicketTypePriceUpdatedEvent(Id, newPrice));
     }
 
-    private Ticket(Guid eventId, string name, string currency, decimal price, int quantity, Guid? id = null) : base(id)
+    private TicketType(Guid eventId, string name, string currency, decimal price, int quantity, Guid? id = null) : base(id)
     {
         EventId = eventId;
         Name = name;
@@ -49,5 +49,5 @@ public class Ticket: Entity
         Quantity = quantity;
     }
 
-    private Ticket() { }
+    private TicketType() { }
 }

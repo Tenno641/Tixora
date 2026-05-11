@@ -76,7 +76,7 @@ namespace Events.Infrastructure.Persistence.Migrations
                     b.ToTable("Events", "events");
                 });
 
-            modelBuilder.Entity("Events.Domain.Tickets.Ticket", b =>
+            modelBuilder.Entity("Events.Domain.Tickets.TicketType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -101,7 +101,7 @@ namespace Events.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tickets", "events");
+                    b.ToTable("TicketTypes", "events");
                 });
 #pragma warning restore 612, 618
         }

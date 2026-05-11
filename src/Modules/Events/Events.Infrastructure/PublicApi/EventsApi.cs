@@ -23,7 +23,7 @@ public class EventsApi : IEventsApi
                                t."Id",
                                t."Price",
                                t."Currency"
-                           FROM events."Tickets" AS t
+                           FROM events."TicketTypes" AS t
                            WHERE t."Id" = @TicketId;
                            """;
 

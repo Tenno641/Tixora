@@ -24,14 +24,14 @@ public class GetTicket: IRequestHandler<GetTicketQuery, ErrorOr<TicketResponse>>
 
         string sql = """
                      SELECT * 
-                     FROM events."Tickets" as t
+                     FROM events."TicketTypes" as t
                      WHERE t."Id" = @TicketId AND t."EventId" = @EventId;
                      """;
         
-        Ticket? ticket = await connection.QuerySingleOrDefaultAsync<Ticket>(sql, request);
+        TicketType? ticket = await connection.QuerySingleOrDefaultAsync<TicketType>(sql, request);
 
         if (ticket is null)
-            return TicketErrors.TicketNotFound;
+            return TicketTypeErrors.TicketNotFound;
 
         return new TicketResponse(ticket.Id, ticket.EventId, ticket.Name, ticket.Currency, ticket.Price, ticket.Quantity);
     }

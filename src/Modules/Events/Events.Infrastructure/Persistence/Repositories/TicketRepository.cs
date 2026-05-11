@@ -22,7 +22,7 @@ public class TicketRepository: ITicketRepository
         await using var connection = await _dbConnectionFactory.OpenConnectionAsync();
 
         string sql = """
-                     SELECT EXISTS(SELECT 1 FROM events."Tickets" as t WHERE t."EventId" = @Id);
+                     SELECT EXISTS(SELECT 1 FROM events."TicketTypes" as t WHERE t."EventId" = @Id);
                      """;
 
         bool exist = await connection.ExecuteScalarAsync<bool>(sql, new { Id = id });
@@ -30,8 +30,8 @@ public class TicketRepository: ITicketRepository
         return exist;
     }
     
-    public void Insert(Ticket ticket)
+    public void Insert(TicketType ticketType)
     {
-        _dbContext.Tickets.Add(ticket);
+        _dbContext.TicketTypes.Add(ticketType);
     }
 }

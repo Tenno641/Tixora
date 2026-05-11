@@ -1,4 +1,4 @@
-﻿using ErrorOr;
+using ErrorOr;
 using FluentValidation;
 using MediatR;
 using Tickets.Application.Common;
@@ -12,24 +12,21 @@ internal sealed class UpdateCustomerCommandHandler : IRequestHandler<UpdateCusto
 {
     private readonly ICustomerRepository _customerRepository;
     private readonly IUnitOfWork _unitOfWork;
-    
+
     public UpdateCustomerCommandHandler(ICustomerRepository customerRepository, IUnitOfWork unitOfWork)
     {
         _customerRepository = customerRepository;
         _unitOfWork = unitOfWork;
     }
-    
+
     public async Task<ErrorOr<Success>> Handle(UpdateCustomerCommand request, CancellationToken cancellationToken)
     {
         Customer? customer = await _customerRepository.GetAsync(request.CustomerId, cancellationToken);
-
         if (customer is null)
             return CustomerErrors.CustomerIsNotFound(request.CustomerId);
 
         customer.Update(request.FirstName, request.LastName);
-
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-
         return Result.Success;
     }
 }

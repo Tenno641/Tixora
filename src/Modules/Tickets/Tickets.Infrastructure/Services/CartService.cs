@@ -34,7 +34,7 @@ public class CartService: ICartService
         
         Cart cart = await GetAsync(customerId, cancellationToken);
 
-        CartItem? existingCartItems = cart.Items.Find(i => i.TicketId == cartItem.TicketId);
+        CartItem? existingCartItems = cart.Items.Find(i => i.TicketTypeId == cartItem.TicketTypeId);
 
         if (existingCartItems is null)
             cart.Items.Add(cartItem);
@@ -50,7 +50,7 @@ public class CartService: ICartService
         
         Cart cart = await GetAsync(customerId, cancellationToken);
         
-        CartItem? existingCartItem = cart.Items.Find(i => i.TicketId == ticketId);
+        CartItem? existingCartItem = cart.Items.Find(i => i.TicketTypeId == ticketId);
         
         if (existingCartItem == null)
             return;

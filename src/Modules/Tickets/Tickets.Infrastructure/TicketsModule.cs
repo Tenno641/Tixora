@@ -1,4 +1,9 @@
-﻿using MassTransit;
+﻿using Evently.Modules.Ticketing.Application.Abstractions.Payments;
+using Evently.Modules.Ticketing.Domain.Events;
+using Evently.Modules.Ticketing.Domain.Payments;
+using Evently.Modules.Ticketing.Domain.Tickets;
+using Evently.Modules.Ticketing.Infrastructure.Payments;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Tickets.Application.Common;
@@ -33,6 +38,13 @@ public static class TicketsModule
         
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<TicketsDbContext>());
         services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IEventRepository, EventRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<ITicketRepository, TicketRepository>();
+        services.AddScoped<ITicketTypeRepository, TicketTypeRepository>();
+        
+        services.AddScoped<IPaymentService, PaymentService>();
 
         return services;
     }

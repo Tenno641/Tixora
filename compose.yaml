@@ -1,15 +1,4 @@
 services:
-  tixora.bootstraper:
-    image: tixora.bootstraper
-    container_name: tixora_api
-    build:
-      context: .
-      dockerfile: src/API/Tixora.Bootstraper/Dockerfile
-    environment:
-      - ASPNETCORE_URLS=http://localhost:8081;https://localhost:8080
-    depends_on:
-      - tixora.db
-
   tixora.db:
     image: postgres:latest
     container_name: tixora_db

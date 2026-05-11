@@ -24,11 +24,11 @@ public class GetTickets : IRequestHandler<GetTicketsQuery, ErrorOr<List<TicketRe
 
         const string sql = """
                            SELECT *
-                           FROM events."Tickets" AS e
+                           FROM events."TicketTypes" AS e
                            WHERE e."Id" = @EventId;
                            """;
 
-        List<Ticket> tickets = (await connection.QueryAsync<Ticket>(sql, request)).ToList();
+        List<TicketType> tickets = (await connection.QueryAsync<TicketType>(sql, request)).ToList();
 
         return tickets.Select(t => t.ToResponse()).ToList();
     }

@@ -1,4 +1,4 @@
-﻿using System.Data.Common;
+using System.Data.Common;
 using Dapper;
 using ErrorOr;
 using MediatR;
@@ -9,15 +9,15 @@ namespace Tickets.Application.Customers;
 
 public sealed record GetCustomerQuery(Guid CustomerId) : IRequest<ErrorOr<CustomerResponse>>;
 
-public sealed class GetCustomerById : IRequestHandler<GetCustomerQuery, ErrorOr<CustomerResponse>>
+public sealed class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, ErrorOr<CustomerResponse>>
 {
     private readonly IDbConnectionFactory _dbConnectionFactory;
-    
-    public GetCustomerById(IDbConnectionFactory dbConnectionFactory)
+
+    public GetCustomerQueryHandler(IDbConnectionFactory dbConnectionFactory)
     {
         _dbConnectionFactory = dbConnectionFactory;
     }
-    
+
     public async Task<ErrorOr<CustomerResponse>> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
     {
         await using DbConnection connection = await _dbConnectionFactory.OpenConnectionAsync();
@@ -34,7 +34,6 @@ public sealed class GetCustomerById : IRequestHandler<GetCustomerQuery, ErrorOr<
              """;
 
         CustomerResponse? customer = await connection.QuerySingleOrDefaultAsync<CustomerResponse>(sql, request);
-
         if (customer is null)
             return CustomerErrors.CustomerIsNotFound(request.CustomerId);
 

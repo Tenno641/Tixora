@@ -1,7 +1,6 @@
 ﻿using ErrorOr;
 using MassTransit;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using Tickets.Application.Customers;
 using Users.IntegrationEvents;
 

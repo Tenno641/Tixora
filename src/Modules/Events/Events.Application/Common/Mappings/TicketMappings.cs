@@ -5,9 +5,9 @@ namespace Events.Application.Common.Mappings;
 
 public static class TicketMappings
 {
-    public static TicketResponse ToResponse(this Ticket ticket)
+    public static TicketResponse ToResponse(this TicketType ticketType)
     {
-        TicketResponse response = new TicketResponse(ticket.Id, ticket.EventId, ticket.Name, ticket.Currency, ticket.Price, ticket.Quantity);
+        TicketResponse response = new TicketResponse(ticketType.Id, ticketType.EventId, ticketType.Name, ticketType.Currency, ticketType.Price, ticketType.Quantity);
         
         return response;
     }

@@ -24,16 +24,16 @@ public class UpdateTicketPrice: IRequestHandler<UpdateTicketPriceCommand, ErrorO
 
         const string fetchTicketSql = """
                            SELECT *
-                           FROM events."Tickets" AS t
+                           FROM events."TicketTypes" AS t
                            WHERE t."Id" = @TicketId AND t."EventId" = @EventId;
                            """;
 
-        Ticket? ticket = await connection.QuerySingleOrDefaultAsync(fetchTicketSql, new { TicketId = request.TicketId, EventId = request.EventId });
+        TicketType? ticket = await connection.QuerySingleOrDefaultAsync(fetchTicketSql, new { TicketId = request.TicketId, EventId = request.EventId });
         if (ticket is null)
-            return TicketErrors.TicketNotFound;
+            return TicketTypeErrors.TicketNotFound;
         
         const string updateTicketPriceSql = """
-                                           UPDATE events."Tickets" AS e
+                                           UPDATE events."TicketTypes" AS e
                                            SET "Price" = @NewPrice
                                            WHERE e."Id" = @TicketId AND e."EventId" = @EventId;
                                            """;
@@ -42,6 +42,6 @@ public class UpdateTicketPrice: IRequestHandler<UpdateTicketPriceCommand, ErrorO
 
         return rowsAffected == 0
             ? ticket.Id
-            : TicketErrors.FailedUpdatingTicketPrice;
+            : TicketTypeErrors.FailedUpdatingTicketPrice;
     }
 }

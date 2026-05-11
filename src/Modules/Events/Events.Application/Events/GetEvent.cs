@@ -40,7 +40,7 @@ public class GetEvent: IRequestHandler<GetEventQuery, ErrorOr<EventTicketRespons
                                t."Currency",
                                t."Quantity"
                            FROM events."Events" as e
-                           LEFT JOIN events."Tickets" as t ON e."Id" = t."EventId"
+                           LEFT JOIN events."TicketTypes" as t ON e."Id" = t."EventId"
                            WHERE e."Id" = @Id
                            """;
 

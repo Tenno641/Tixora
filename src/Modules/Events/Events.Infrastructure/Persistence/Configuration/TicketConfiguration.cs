@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Events.Infrastructure.Persistence.Configuration;
 
-public class TicketConfiguration: IEntityTypeConfiguration<Ticket>
+public class TicketConfiguration: IEntityTypeConfiguration<TicketType>
 {
-    public void Configure(EntityTypeBuilder<Ticket> builder)
+    public void Configure(EntityTypeBuilder<TicketType> builder)
     {
         builder.HasOne<Event>().WithMany();
     }

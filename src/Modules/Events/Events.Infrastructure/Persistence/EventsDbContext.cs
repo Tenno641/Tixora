@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 public sealed class EventsDbContext: DbContext, IUnitOfWork
 {
     public DbSet<Event> Events { get; set; }
-    public DbSet<Ticket> Tickets { get; set; }
+    public DbSet<TicketType> TicketTypes { get; set; }
     public DbSet<Category> Categories { get; set; }
 
     public EventsDbContext(DbContextOptions<EventsDbContext> options): base(options) { }

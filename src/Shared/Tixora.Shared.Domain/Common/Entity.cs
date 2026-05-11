@@ -11,7 +11,7 @@ public class Entity
         Id = id ?? Guid.CreateVersion7();
     }
 
-    public void RaiseDomainEvent(IDomainEvent domainEvent)
+    protected void RaiseDomainEvent(IDomainEvent domainEvent)
     {
         _domainEvents.Add(domainEvent);
     }
