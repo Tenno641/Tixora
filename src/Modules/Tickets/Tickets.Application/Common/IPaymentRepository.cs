@@ -1,5 +1,4 @@
-﻿using Evently.Modules.Ticketing.Domain.Events;
-using Tickets.Domain.Events;
+﻿using Tickets.Domain.Events;
 using Tickets.Domain.Payments;
 
 namespace Evently.Modules.Ticketing.Domain.Payments;

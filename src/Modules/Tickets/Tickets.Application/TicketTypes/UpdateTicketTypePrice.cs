@@ -1,5 +1,4 @@
 using ErrorOr;
-using Evently.Modules.Ticketing.Domain.Events;
 using FluentValidation;
 using MediatR;
 using Tickets.Application.Common;

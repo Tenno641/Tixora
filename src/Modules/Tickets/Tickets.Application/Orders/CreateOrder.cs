@@ -1,7 +1,6 @@
 using System.Data.Common;
 using ErrorOr;
 using Evently.Modules.Ticketing.Application.Abstractions.Payments;
-using Evently.Modules.Ticketing.Domain.Events;
 using Evently.Modules.Ticketing.Domain.Payments;
 using FluentValidation;
 using MediatR;

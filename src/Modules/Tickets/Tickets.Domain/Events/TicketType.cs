@@ -45,9 +45,7 @@ public sealed class TicketType : Entity
         AvailableQuantity -= quantity;
 
         if (AvailableQuantity == 0)
-        {
             RaiseDomainEvent(new TicketTypeSoldOutDomainEvent(Id));
-        }
 
         return Result.Success;
     }

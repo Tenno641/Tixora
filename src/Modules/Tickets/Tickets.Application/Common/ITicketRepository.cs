@@ -1,8 +1,7 @@
-﻿using Evently.Modules.Ticketing.Domain.Events;
-using Tickets.Domain.Events;
+﻿using Tickets.Domain.Events;
 using Tickets.Domain.Tickets;
 
-namespace Evently.Modules.Ticketing.Domain.Tickets;
+namespace Tickets.Application.Common;
 
 public interface ITicketRepository
 {

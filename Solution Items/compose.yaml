@@ -1,3 +1,5 @@
+name: tixora
+
 services:
   tixora.db:
     image: postgres:latest
@@ -7,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   tixora.seq:
     image: datalust/seq
@@ -17,17 +19,27 @@ services:
       - SEQ_FIRSTRUN_ADMINUSERNAME=admin
       - SEQ_FIRSTRUN_ADMINPASSWORD=admin
     ports:
-      - 5341:80
+      - "5341:80"
     
   tixora.redis:
     image: redis:latest
     container_name: tixora_redis
     ports:
-      - 6379:6379
+      - "6379:6379"
     
   tixora.rabbitmq:
     image: rabbitmq:management
     container_name: tixora_rabbitmq
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
+    
+  tixora.keycloak:
+    image: quay.io/keycloak/keycloak:24.0.3
+    container_name: tixora_keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - "18080:8080"
+    command: start-dev

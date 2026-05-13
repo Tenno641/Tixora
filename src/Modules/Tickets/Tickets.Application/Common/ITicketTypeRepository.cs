@@ -1,6 +1,6 @@
 ﻿using Tickets.Domain.Events;
 
-namespace Evently.Modules.Ticketing.Domain.Events;
+namespace Tickets.Application.Common;
 
 public interface ITicketTypeRepository
 {

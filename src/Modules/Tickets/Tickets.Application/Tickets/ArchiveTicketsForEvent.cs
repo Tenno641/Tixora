@@ -1,6 +1,5 @@
 using System.Data.Common;
 using ErrorOr;
-using Evently.Modules.Ticketing.Domain.Tickets;
 using FluentValidation;
 using MediatR;
 using Tickets.Application.Common;
@@ -33,9 +32,7 @@ internal sealed class ArchiveTicketsForEventCommandHandler : IRequestHandler<Arc
 
         IEnumerable<Ticket> tickets = await _ticketRepository.GetForEventAsync(@event, cancellationToken);
         foreach (Ticket ticket in tickets)
-        {
             ticket.Archive();
-        }
 
         @event.TicketsArchived();
         

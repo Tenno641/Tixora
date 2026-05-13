@@ -1,7 +1,5 @@
 ﻿using Evently.Modules.Ticketing.Application.Abstractions.Payments;
-using Evently.Modules.Ticketing.Domain.Events;
 using Evently.Modules.Ticketing.Domain.Payments;
-using Evently.Modules.Ticketing.Domain.Tickets;
 using Evently.Modules.Ticketing.Infrastructure.Payments;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;

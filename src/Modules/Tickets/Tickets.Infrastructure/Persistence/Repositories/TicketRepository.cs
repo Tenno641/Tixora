@@ -1,5 +1,5 @@
-﻿using Evently.Modules.Ticketing.Domain.Tickets;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Tickets.Application.Common;
 using Tickets.Domain.Events;
 using Tickets.Domain.Tickets;
 

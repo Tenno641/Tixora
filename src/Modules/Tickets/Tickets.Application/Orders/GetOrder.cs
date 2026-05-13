@@ -31,7 +31,7 @@ internal sealed class GetOrderQueryHandler : IRequestHandler<GetOrderQuery, Erro
                  o."Status",
                  o."TotalPrice",
                  o."CreatedAtUtc",
-                 oi."Id",
+                 oi."Id" AS {nameof(OrderItemResponse.OrderItemId)},
                  oi."OrderId",
                  oi."TicketTypeId",
                  oi."Quantity",
@@ -49,13 +49,10 @@ internal sealed class GetOrderQueryHandler : IRequestHandler<GetOrderQuery, Erro
             (order, orderItem) =>
             {
                 if (ordersDictionary.TryGetValue(order.Id, out OrderOrderItemsResponse? existing))
-                {
                     order = existing;
-                }
                 else
-                {
                     ordersDictionary.Add(order.Id, order);
-                }
+                
                 order.OrderItems.Add(orderItem);
                 return order;
             },

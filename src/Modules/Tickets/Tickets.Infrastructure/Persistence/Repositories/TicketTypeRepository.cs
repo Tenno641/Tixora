@@ -1,5 +1,5 @@
-﻿using Evently.Modules.Ticketing.Domain.Events;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Tickets.Application.Common;
 using Tickets.Domain.Events;
 
 namespace Tickets.Infrastructure.Persistence.Repositories;
@@ -34,7 +34,7 @@ internal sealed class TicketTypeRepository : ITicketTypeRepository
                     t."AvailableQuantity"
                 FROM tickets."TicketTypes" AS t
                 WHERE t."Id" = {id}
-                FOR UPDATE 
+                FOR UPDATE NOWAIT
                 """)
             .SingleOrDefaultAsync(cancellationToken);
     }

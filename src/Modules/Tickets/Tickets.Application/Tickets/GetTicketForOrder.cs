@@ -30,8 +30,8 @@ internal sealed class GetTicketsForOrderQueryHandler : IRequestHandler<GetTicket
                 t."EventId",
                 t."TicketTypeId",
                 t."Code",
-                t."CreateAtUtc"
-            FROM tickets."tickets" AS t
+                t."CreatedAtUtc"
+            FROM tickets."Tickets" AS t
             WHERE t."OrderId" = @OrderId
             """;
 

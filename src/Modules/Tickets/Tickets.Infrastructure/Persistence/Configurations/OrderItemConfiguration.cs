@@ -1,5 +1,4 @@
-﻿using Evently.Modules.Ticketing.Domain.Events;
-using Evently.Modules.Ticketing.Domain.Orders;
+﻿using Evently.Modules.Ticketing.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Tickets.Domain.Events;
