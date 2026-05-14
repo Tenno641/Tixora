@@ -34,7 +34,7 @@ builder.Services.AddEventModule(databaseConnectionString);
 builder.Services.AddUsersModule(databaseConnectionString);
 builder.Services.AddTicketsModule(databaseConnectionString);
 
-builder.Configuration.AddModulesConfiguration(["events", "users"]);
+builder.Configuration.AddModulesConfiguration(["events", "users", "tickets"]);
 
 var app = builder.Build();
 
