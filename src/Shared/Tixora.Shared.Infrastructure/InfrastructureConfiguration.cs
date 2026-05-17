@@ -4,6 +4,7 @@ using Npgsql;
 using StackExchange.Redis;
 using Tixora.Shared.Application.Common;
 using Tixora.Shared.Application.Common.EventBus;
+using Tixora.Shared.Infrastructure.Authentication;
 using Tixora.Shared.Infrastructure.Bus;
 using Tixora.Shared.Infrastructure.Common;
 using Tixora.Shared.Infrastructure.Persistence;
@@ -34,6 +35,8 @@ public static class InfrastructureConfiguration
                 rabbitConfig.ConfigureEndpoints(context);
             });
         });
+
+        services.AddJwtAuthentication();
         
         services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
 

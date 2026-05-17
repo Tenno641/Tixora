@@ -31,7 +31,7 @@ builder.Services.AddInfrastructureSharedConfiguration(databaseConnectionString, 
 [Tickets.Infrastructure.TicketsModule.ConfigureConsumers]);
 
 builder.Services.AddEventModule(databaseConnectionString);
-builder.Services.AddUsersModule(databaseConnectionString);
+builder.Services.AddUsersModule(databaseConnectionString, builder.Configuration);
 builder.Services.AddTicketsModule(databaseConnectionString);
 
 builder.Configuration.AddModulesConfiguration(["events", "users", "tickets"]);

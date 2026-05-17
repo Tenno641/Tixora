@@ -37,7 +37,7 @@ services:
   tixora.keycloak:
     image: quay.io/keycloak/keycloak:24.0.3
     container_name: tixora_keycloak
-    command: start-dev
+    command: start-dev --log-level=DEBUG
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin

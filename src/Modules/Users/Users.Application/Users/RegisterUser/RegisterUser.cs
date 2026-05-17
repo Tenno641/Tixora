@@ -12,16 +12,25 @@ internal sealed class RegisterUser : IRequestHandler<RegisterUserCommand, ErrorO
 {
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IIdentityProviderService _identityProviderService;
     
-    public RegisterUser(IUserRepository userRepository, IUnitOfWork unitOfWork)
+    public RegisterUser(IUserRepository userRepository, IUnitOfWork unitOfWork, IIdentityProviderService identityProviderService)
     {
         _userRepository = userRepository;
         _unitOfWork = unitOfWork;
+        _identityProviderService = identityProviderService;
     }
     
     public async Task<ErrorOr<Guid>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        User user = User.Create(request.Email, request.FirstName, request.LastName);
+        UserModel userModel = new UserModel(request.FirstName, request.LastName, request.Email, request.Password);
+
+        ErrorOr<string> result = await _identityProviderService.RegisterUser(userModel, cancellationToken);
+
+        if (result.IsError)
+            return result.Errors;
+            
+        User user = User.Create(request.Email, request.FirstName, request.LastName, request.Password);
 
         _userRepository.Insert(user);
 

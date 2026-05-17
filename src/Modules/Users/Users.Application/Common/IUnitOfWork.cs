@@ -1,4 +1,6 @@
-﻿namespace Users.Application.Common;
+﻿using System.Data.Common;
+
+namespace Users.Application.Common;
 
 public interface IUnitOfWork
 {
