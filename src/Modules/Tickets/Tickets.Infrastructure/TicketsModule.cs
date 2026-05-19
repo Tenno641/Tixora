@@ -10,7 +10,7 @@ using Tickets.Infrastructure.Persistence;
 using Tickets.Infrastructure.Persistence.Repositories;
 using Tickets.Infrastructure.Services;
 using Tixora.Shared.Application.Common;
-using Tixora.Shared.Infrastructure.Common;
+using Tixora.Shared.Infrastructure.Services;
 
 namespace Tickets.Infrastructure;
 

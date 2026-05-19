@@ -12,8 +12,4 @@
       <ProjectReference Include="..\Users.IntegrationEvents\Users.IntegrationEvents.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Dapper" Version="2.1.72" />
-    </ItemGroup>
-    
 </Project>

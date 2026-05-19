@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Events.Application.Common;
 using Events.Domain.Events;
 using MediatR;
 using ErrorOr;

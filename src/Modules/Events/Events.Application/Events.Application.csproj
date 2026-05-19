@@ -11,8 +11,4 @@
       <ProjectReference Include="..\Events.Domain\Events.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Dapper" Version="2.1.72" />
-    </ItemGroup>
-
 </Project>

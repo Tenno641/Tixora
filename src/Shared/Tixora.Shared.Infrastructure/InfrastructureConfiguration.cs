@@ -5,9 +5,10 @@ using StackExchange.Redis;
 using Tixora.Shared.Application.Common;
 using Tixora.Shared.Application.Common.EventBus;
 using Tixora.Shared.Infrastructure.Authentication;
+using Tixora.Shared.Infrastructure.Authorization;
 using Tixora.Shared.Infrastructure.Bus;
-using Tixora.Shared.Infrastructure.Common;
 using Tixora.Shared.Infrastructure.Persistence;
+using Tixora.Shared.Infrastructure.Services;
 
 namespace Tixora.Shared.Infrastructure;
 
@@ -37,6 +38,8 @@ public static class InfrastructureConfiguration
         });
 
         services.AddJwtAuthentication();
+        services.AddPermissionAuthorization();
+        services.AddTransient<IPermissionService, PermissionService>();
         
         services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
 

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Caching.Distributed;
 using Tixora.Shared.Application.Common;
 
-namespace Tixora.Shared.Infrastructure.Common;
+namespace Tixora.Shared.Infrastructure.Services;
 
 public class CacheService: ICacheService
 {

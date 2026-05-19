@@ -32,16 +32,9 @@ public static class UsersModule
         });
         
         services.AddTransient<IIdentityProviderService, IdentityProviderService>();
-        services.AddTransient<KeyCloakAuthRequestHandler>();
 
         services.Configure<KeyCloakOptions>(configuration.GetSection("Users:KeyCloak"));
-        services.AddHttpClient<KeyCloakClient>((sp, httpClient) =>
-        {
-            KeyCloakOptions keyCloakOptions = sp.GetRequiredService<IOptions<KeyCloakOptions>>().Value;
-            
-            httpClient.BaseAddress = new Uri(keyCloakOptions.AdminUrl);
-        })
-        .AddHttpMessageHandler<KeyCloakAuthRequestHandler>();
+        services.AddHttpClient<KeyCloakClient>();
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<UsersDbContext>());

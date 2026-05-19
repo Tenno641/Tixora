@@ -3,7 +3,8 @@
     "KeyCloak": {
       "AdminUrl": "http://localhost:18080/admin/realms/tixora/",
       "TokenUrl": "http://localhost:18080/realms/tixora/protocol/openid-connect/token",
-      "ClientId": "tixora-confidential-client",
+      "ConfidentialClientId": "tixora-confidential-client",
+      "publicClientId": "tixora-public-client",
       "ClientSecret": "tWuZy5gljVhHf7U6OAu6oQUC5f6UkfeV"
     }
   }

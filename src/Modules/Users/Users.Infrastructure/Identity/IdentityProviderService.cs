@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json.Serialization;
 using ErrorOr;
-using MassTransit.Middleware;
 using Microsoft.Extensions.Logging;
 using Users.Application.Common;
 using Users.Domain.Users;
@@ -19,7 +18,7 @@ public class IdentityProviderService: IIdentityProviderService
         _logger = logger;
     }
     
-    public async Task<ErrorOr<string>> RegisterUser(UserModel userModel, CancellationToken cancellationToken = default)
+    public async Task<ErrorOr<string>> RegisterUserAsync(UserModel userModel, CancellationToken cancellationToken = default)
     {
         UserRepresentation userRepresentation = new UserRepresentation
         {
@@ -45,6 +44,30 @@ public class IdentityProviderService: IIdentityProviderService
             return UserErrors.UserEmailAlreadyExist;
         }
     }
+    
+    public async Task<ErrorOr<LoginResponse>> LoginUserAsync(string email, string password, CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            LoginResponse loginResponse = await _keyCloakClient.LoginUserAsync(email, password, cancellationToken);
+
+            return loginResponse;
+        }
+        catch (HttpRequestException e) when (e.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            _logger.LogError("User Login Failed");
+
+            return UserErrors.UserLoginFailed;
+        }
+    }
+}
+
+public class LoginRepresentation
+{
+    [JsonPropertyName("username")]
+    public string Username { get; set; }
+    [JsonPropertyName("password")]
+    public string Password { get; set; }
 }
 
 public class UserRepresentation
