@@ -32,7 +32,6 @@ public class KeyCloakAuthRequestHandler: DelegatingHandler
         KeyValuePair<string, string>[] requestParameters =
         [
             new KeyValuePair<string, string>("grant_type", "client_credentials"),
-            new KeyValuePair<string, string>("scope", "openid"),
             new KeyValuePair<string, string>("client_id", _options.ClientId),
             new KeyValuePair<string, string>("client_secret", _options.ClientSecret)
         ];

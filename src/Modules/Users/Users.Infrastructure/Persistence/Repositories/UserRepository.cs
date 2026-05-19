@@ -20,6 +20,7 @@ internal sealed class UserRepository : IUserRepository
 
     public void Insert(User user)
     {
+        _dbContext.AttachRange(user.Roles);
         _dbContext.Users.Add(user);
     }
 }
